@@ -81,6 +81,7 @@ const formModel = reactive({
             :selected="formModel.rooms === option.value"
             :value="option.value"
             :label="option.label"
+            :disabled="!option.value"
           >
             {{ option.label }}
           </option>
@@ -98,6 +99,7 @@ const formModel = reactive({
             :key="option.value"
             :selected="formModel.availability === option.value"
             :value="option.value"
+            :disabled="!option.value"
             :label="option.label"
           >
             {{ option.label }}
