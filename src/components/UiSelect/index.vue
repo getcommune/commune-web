@@ -245,7 +245,6 @@ export default {
                     class:
                       "text-background-d/80 dark:text-background/80 w-6 h-6",
                     style: {
-                      strokeWidth: "3rem",
                     },
                   }),
                 ]
