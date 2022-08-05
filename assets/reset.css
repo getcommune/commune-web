@@ -1,0 +1,48 @@
+:root.light {
+  color-scheme: light;
+  @apply bg-background text-background-d;
+}
+
+:root.dark {
+  color-scheme: dark;
+  @apply bg-background-d text-background/90;
+}
+
+:root {
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* moz */
+@supports (scrollbar-width: thin) {
+  * {
+    scrollbar-width: thin;
+  }
+}
+
+hr {
+  pointer-events: none;
+  @apply border-divider;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  user-select: none;
+}
+
+input,
+select,
+textarea,
+button,
+[role="button"] {
+  font-size: 16px;
+}

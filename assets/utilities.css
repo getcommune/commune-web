@@ -1,0 +1,80 @@
+.fill-after-before:after,
+.fill-after-before:before,
+.fill-after:after,
+.fill-before-after:after,
+.fill-before-after:before,
+.fill-before:before,
+.pseudo {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.hide-scrollbar:not(.show-scrollbar-on-hover:hover) {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar:not(.show-scrollbar-on-hover:hover)::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+  display: none;
+}
+
+.position-center {
+  @apply left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%];
+}
+
+.line-clamp-1,
+.line-clamp-2,
+.line-clamp-3,
+.line-clamp-4 {
+  display: -webkit-box !important;
+  display: -moz-box !important;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding-bottom: 2px;
+}
+
+.line-clamp-1 {
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  -webkit-line-clamp: 3;
+}
+
+.line-clamp-4 {
+  -webkit-line-clamp: 4;
+}
+
+@keyframes fadeAppear {
+  from {
+    opacity: var(--appear-from, 0);
+  }
+  to {
+    opacity: var(--appear-to, 1);
+  }
+}
+
+.fade-appear {
+  animation-name: fadeAppear;
+  animation-delay: var(--appear-delay, 0ms);
+  animation-duration: var(--appear-duration, 150ms);
+  animation-iteration-count: var(--appear-flash, 1);
+  animation-timing-function: var(--appear-ease, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.flex-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
