@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, PropType } from "vue";
+import { defineComponent, h, nextTick, PropType } from "vue";
 import { componentName } from "../../utils";
 import Overlay from "../Overlay/index.vue";
 import { OverlayPayload } from "../Overlay/type";
@@ -73,6 +73,10 @@ export default defineComponent({
 
       set(val: boolean) {
         if (typeof val === "boolean" && !props.value.disabled) {
+          if (val) {
+            swipedOut.value = false;
+          }
+
           rootScrolled.value = false;
 
           if (typeof props.value.modelValue === "boolean") {
@@ -145,6 +149,7 @@ export default defineComponent({
             const slotProps = {
               ..._slotProps,
               ...payload.value,
+              swipedOut: swipedOut.value,
             };
 
             return h(
@@ -269,9 +274,9 @@ export default defineComponent({
                                   }
 
                                   if (_ratio <= props.value.minThreshold) {
-                                    modelSync.value = false;
-
                                     swipedOut.value = true;
+
+                                    modelSync.value = false;
                                   }
                                 }
                               },

@@ -90,7 +90,7 @@ const formModel = reactive({
 
       <UiSelect
         v-model="formModel.availability"
-        label="Avaible for Rent"
+        label="Available for Rent"
         placeholder="Available"
       >
         <template #options>

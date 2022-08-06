@@ -74,7 +74,7 @@ const links = [
       </template>
 
       <div v-else class="flex items-center justify-end space-x-2">
-        <UiTransition :config="['fade', 'scale']">
+        <UiTransition :config="['fade', 'scale']" :spring="{ enter: 'wobbly' }">
           <Button
             v-if="dropdownActive"
             class="!bg-transparent !w-9 !h-9 !px-0 !text-xl"

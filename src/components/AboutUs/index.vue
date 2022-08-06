@@ -16,7 +16,7 @@ const breakpoint = useBreakpoint();
       <div class="lg:w-[50%]">
         <div class="flex justify-start">
           <span class="w-[min(32rem,50vw)]">
-            <Img load-effect="blur" src="AboutUs.png" alt="Image" />
+            <Img load-effect="fade" src="AboutUs.png" alt="Image" />
           </span>
         </div>
       </div>

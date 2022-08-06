@@ -38,7 +38,7 @@ const breakpoint = useBreakpoint();
           <span
             class="lg:max-w-[min(30rem,45%)] lg:h-auto lg:w-auto h-[min(14rem,95vw)] w-[min(14rem,95vw)]"
           >
-            <Img load-effect="blur" src="Globe.png" alt="Globe" />
+            <Img load-effect="fade" src="Globe.png" alt="Globe" />
           </span>
         </div>
       </div>
