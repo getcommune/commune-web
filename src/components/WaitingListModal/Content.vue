@@ -72,7 +72,7 @@ const formModel = reactive({
       <UiSelect
         v-model="formModel.rooms"
         label="Total Number of rooms"
-        placeholder="5 - 10"
+        placeholder="Choose one"
       >
         <template #options>
           <option
@@ -91,7 +91,7 @@ const formModel = reactive({
       <UiSelect
         v-model="formModel.availability"
         label="Available for Rent"
-        placeholder="Available"
+        placeholder="Choose one"
       >
         <template #options>
           <option

@@ -22,7 +22,6 @@ const breakpoint = useBreakpoint();
         <UiTransition appear>
           <div
             v-if="active"
-            @click="close"
             style="
               position: absolute;
               top: 0;
@@ -31,6 +30,8 @@ const breakpoint = useBreakpoint();
               height: 100%;
               background: rgb(0, 0, 0, 0.5);
             "
+            @click="close"
+            @wheel.prevent
           ></div>
         </UiTransition>
 
