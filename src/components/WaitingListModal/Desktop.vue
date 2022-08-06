@@ -49,7 +49,7 @@ const breakpoint = useBreakpoint();
         >
           <div v-if="active" class="h-full w-full flex-centered outline-none">
             <div
-              class="bg-background dark:bg-surface-d shadow-xl dark:shadow-none dark:border border-divider-d relative z-1 min-w-[40rem] rounded-lg max-h-[calc(100vh-2rem)] overflow-y-auto"
+              class="bg-background dark:bg-surface-d shadow-xl dark:shadow-none dark:border border-divider-d relative z-1 min-w-[40rem] rounded-lg max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain"
             >
               <Content />
             </div>

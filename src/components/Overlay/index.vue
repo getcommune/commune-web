@@ -610,6 +610,5 @@ export default defineComponent({
   z-index: var(--z-index);
   outline: none;
   border: none;
-  overscroll-behavior: contain;
 }
 </style>
