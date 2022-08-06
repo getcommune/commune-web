@@ -43,8 +43,9 @@ const links = [
   <header
     class="sticky top-0 py-3 z-1 before:w-full before:absolute before:bottom-0 before:left-0 before:bg-divider dark:before:bg-divider-d before:transition-opacity before:opacity-0"
     :class="{
-      'supports-backdrop-filter:bg-background/80 dark:supports-backdrop-filter:bg-background-d dark:supports-backdrop-filter:bg-opacity-[0.875] supports-backdrop-filter:backdrop-blur-xl supports-backdrop-filter:backdrop-saturate-[200%] not-supports-backdrop-filter:bg-background/90 dark:not-supports-backdrop-filter:bg-background-d/90 before:h-[1px] before:!opacity-100':
-        !intersecting && !dropdownActive,
+      'supports-backdrop-filter:bg-background/80 dark:supports-backdrop-filter:bg-background-d dark:supports-backdrop-filter:bg-opacity-[0.875] supports-backdrop-filter:backdrop-blur-xl supports-backdrop-filter:backdrop-saturate-[200%] not-supports-backdrop-filter:bg-background/90 dark:not-supports-backdrop-filter:bg-background-d/90 before:h-[1px]':
+        (!intersecting || breakpoint.isMobile) && !dropdownActive,
+      'before:!opacity-100': !intersecting && !dropdownActive,
       'bg-background dark:bg-background-d': dropdownActive,
     }"
   >

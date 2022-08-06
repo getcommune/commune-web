@@ -10,7 +10,7 @@ import MoonIcon from "../Icon/MoonIcon.vue";
 <template>
   <section id="contact-us" class="mt-24">
     <div class="text-center">
-      <h2 class="font-semibold text-xl lg:text-2xl">Have Questions?</h2>
+      <h2 class="font-semibold text-xl lg:text-2xl">Have questions?</h2>
 
       <p>Please contact us.</p>
     </div>
