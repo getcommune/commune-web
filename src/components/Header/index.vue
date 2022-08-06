@@ -50,7 +50,7 @@ const links = [
     }"
   >
     <div class="px-4 lg:px-16 flex items-center justify-between">
-      <a href="/">
+      <a href="">
         <h1
           class="text-primary-base dark:text-[#6489d0] font-black text-2xl lg:text-3xl"
         >

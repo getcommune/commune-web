@@ -43,7 +43,7 @@ import MoonIcon from "../Icon/MoonIcon.vue";
   </section>
 
   <footer class="flex items-center justify-between px-4 lg:px-16">
-    <a href="/">
+    <a href="">
       <h2
         class="text-primary-base dark:text-[#6489d0] font-black text-lg py-8 lg:text-xl"
       >
