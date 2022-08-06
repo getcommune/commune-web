@@ -15,7 +15,7 @@ const breakpoint = useBreakpoint();
     >
       <div class="lg:w-[50%]">
         <div class="flex justify-start">
-          <span class="w-[min(32rem,50vw)]">
+          <span class="w-[min(32rem,50vw)] inline-block">
             <Img load-effect="fade" src="AboutUs.png" alt="Image" />
           </span>
         </div>

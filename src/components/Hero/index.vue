@@ -36,7 +36,7 @@ const breakpoint = useBreakpoint();
       <div class="lg:-mt-14 order-1 lg:order-2 mb-10">
         <div class="flex justify-center lg:justify-end">
           <span
-            class="lg:max-w-[min(30rem,45%)] lg:h-auto lg:w-auto h-[min(14rem,95vw)] w-[min(14rem,95vw)]"
+            class="lg:max-w-[min(30rem,45%)] lg:h-auto lg:w-auto h-[min(14rem,95vw)] w-[min(14rem,95vw)] inline-block"
           >
             <Img load-effect="fade" src="Globe.png" alt="Globe" />
           </span>
