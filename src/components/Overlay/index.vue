@@ -166,6 +166,11 @@ export default defineComponent({
             return;
           }
 
+          // don't open if overlay is opening
+          if (!val && !contentEntered.value) {
+            return;
+          }
+
           if (typeof props.value.modelValue === "boolean") {
             emit("update:modelValue", val);
           }
@@ -605,5 +610,6 @@ export default defineComponent({
   z-index: var(--z-index);
   outline: none;
   border: none;
+  overscroll-behavior: contain;
 }
 </style>
