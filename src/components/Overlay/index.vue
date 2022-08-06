@@ -167,9 +167,9 @@ export default defineComponent({
           }
 
           // don't open if overlay is opening
-          if (!val && !contentEntered.value) {
-            return;
-          }
+          // if (!val && !contentEntered.value) {
+          //   return;
+          // }
 
           if (typeof props.value.modelValue === "boolean") {
             emit("update:modelValue", val);
