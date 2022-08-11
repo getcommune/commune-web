@@ -7,7 +7,7 @@ import {
   reactive,
   computed,
 } from "@vue/runtime-core";
-import ChevronDown from "/src/components/icon/ChevronDown.vue";
+import ChevronDown from "/src/components/Icon/ChevronDown.vue";
 
 const div = (d, c) => h("div", d, c);
 const label = (d, c) => h("label", d, c);
