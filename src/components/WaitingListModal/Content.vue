@@ -35,7 +35,7 @@ const formModel = reactive({
 <template>
   <section class="p-4 lg:p-8">
     <h2 class="font-bold text-lg lg:text-2xl mt-2 lg:mt-4">
-      Join the waiting list
+      Join the waitlist
     </h2>
 
     <UiForm
