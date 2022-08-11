@@ -10,28 +10,11 @@ import ContactUs from "./components/ContactUs/index.vue";
 import Desktop from "./components/WaitingListModal/Desktop.vue";
 import Mobile from "./components/WaitingListModal/Mobile.vue";
 
-import scrollPolyfill from "scroll-polyfill";
-import { sleep } from "./utils/sleep";
-
 export default defineComponent({
   name: "app",
   directives: {},
   setup() {
-    onBeforeMount(() => {installTheme()
-      scrollPolyfill()
-
-        sleep().then(() => {
-        const { hash } = location;
-
-        const section = document.getElementById(hash);
-
-        if (section) {
-          document.documentElement.scrollTo({
-            top: section.offsetTop,
-          });
-        }
-      });
-    });
+    onBeforeMount(installTheme);
     return { theme };
   },
   components: {
