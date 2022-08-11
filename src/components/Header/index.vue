@@ -17,33 +17,17 @@ const intersecting = ref(false);
 
 const dropdownActive = ref(false);
 
-const hashClicked = (id: string) => {
-  const section = document.getElementById(id);
-
-  if (section) {
-
-    document.documentElement.scrollTo({
-      top: section.offsetTop+100,
-      behavior: "smooth",
-    });
-  }
-};
-
 const links = [
   {
     title: "About us",
-    id: "about-us",
   },
   {
     title: "Services",
-    id: "key-offerings",
   },
   {
     title: "Contact us",
-    id: "contact-us",
-  }
-]
-
+  },
+];
 </script>
 
 <template>
@@ -77,8 +61,8 @@ const links = [
       <template v-if="!breakpoint.isMobile">
         <nav>
           <ul class="flex items-center space-x-11">
-            <li v-for="link in links" :key="link.title" @click="hashClicked(link.id)">
-              <a :href="`#${link.id}`">
+            <li v-for="link in links" :key="link.title">
+              <a href="#">
                 {{ link.title }}
               </a>
             </li>
