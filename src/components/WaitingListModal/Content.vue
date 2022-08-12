@@ -11,8 +11,8 @@ const roomsSelect = [
   { value: "2", label: "2" },
   { value: "3", label: "3" },
   { value: "4", label: "4" },
-  { value: "5 - 10", label: "5 - 10" },
-  { value: "11 - 20", label: "11 - 20" },
+  // { value: "5 - 10", label: "5 - 10" },
+  // { value: "11 - 20", label: "11 - 20" },
 ];
 
 const availabilitySelect = [
