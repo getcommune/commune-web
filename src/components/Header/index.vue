@@ -90,6 +90,22 @@ const links = [
         </Button>
       </template>
 
+      <template v-if="breakpoint.isMobile">
+        <nav>
+          <ul class="flex items-center space-x-11">
+            <li v-for="link in links" :key="link.title" @click="hashClicked(link.id)">
+              <a :href="`#${link.id}`">
+                {{ link.title }}
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <Button @click="state.waitingListModal = true">
+          Join the waitlist
+        </Button>
+      </template>
+
       <div v-else class="flex items-center justify-end space-x-2">
         <UiTransition :config="['fade', 'scale']" :spring="{ enter: 'wobbly' }">
           <Button
