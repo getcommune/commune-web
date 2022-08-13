@@ -4,9 +4,39 @@ import UiInput from "../UiInput/index.vue";
 import Button from "../Button/index.vue";
 import UiSelect from "../UiSelect/index.vue";
 import { reactive } from "vue";
+import { 
+  getFirestore, collection, addDoc
+   } from "firebase/firestore";
+
+import firebaseApp from "../../../firebaseInit";
+
+
+const db = getFirestore(firebaseApp);
+
+const addToWaitlist = async (
+  name: string , email: string, location: string,
+  availability: string, rooms: string, phone: string,
+  managerNumber: string
+) => {
+  try {
+    const docRef = await addDoc(collection(db, 'waitlist'), {
+      name: name,
+      email: email,
+      location: location,
+      availability: availability,
+      rooms: rooms,
+      phone: phone,
+      managerNumber: managerNumber
+    });
+    alert("Submitted!");
+  } catch(e) {
+    alert("Failed to submit!")
+  }
+}
 
 const roomsSelect = [
   { label: "", value: "" },
+  { value: "studio", label: "Studio Apartment"},
   { value: "1", label: "1" },
   { value: "2", label: "2" },
   { value: "3", label: "3" },
@@ -47,6 +77,7 @@ const formModel = reactive({
         v-model="formModel.name"
         label="Full name"
         placeholder="Mark Hillary"
+        required
       />
 
       <UiInput
@@ -58,21 +89,24 @@ const formModel = reactive({
 
       <UiInput
         v-model="formModel.phone"
-        label="Phone Number"
+        label="Phone"
         placeholder="08000000000"
         type="tel"
+        required
       />
 
       <UiInput
         v-model="formModel.location"
         label="Apartment Location"
         placeholder="Lekki Phase 1"
+        required
       />
 
       <UiSelect
         v-model="formModel.rooms"
         label="Total Number of rooms"
         placeholder="Choose one"
+        required
       >
         <template #options>
           <option
@@ -109,12 +143,23 @@ const formModel = reactive({
 
       <UiInput
         v-model="formModel.managerNumber"
-        label="Landlords/Managers No."
-        placeholder="08000000000"
+        label="Landlord/Manager's Phone"
+        placeholder="If you're referring a homeowner to us"
         type="tel"
       />
 
-      <Button type="submit" class="my-4"> Submit </Button>
+      <Button type="submit" class="my-4" v-on:click="
+        addToWaitlist(
+        formModel.name,
+        formModel.email,
+        formModel.location,
+        formModel.availability,
+        formModel.rooms,
+        formModel.phone,
+        formModel.managerNumber
+      )">
+         Submit 
+      </Button>
     </UiForm>
   </section>
 </template>
