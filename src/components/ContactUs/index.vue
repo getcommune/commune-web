@@ -1,10 +1,35 @@
 <script lang="ts" setup>
+
+import { getFirestore, collection, addDoc } from "@firebase/firestore";
+import { reactive } from "vue";
+
 import UiForm from "../UiForm/index.vue";
 import UiInput from "../UiInput/index.vue";
 import Button from "../Button/index.vue";
 import theme from "../../utils/theme";
 import SunIcon from "../Icon/SunIcon.vue";
 import MoonIcon from "../Icon/MoonIcon.vue";
+
+import firebaseApp from "../../../firebaseInit";
+
+const db = getFirestore(firebaseApp);
+
+const addComment = async (email: string, comments: string) => {
+  try {
+    const docRef = await addDoc(collection(db, "questionbox"), {
+      email: email,
+      content: comments
+    });
+    alert("Submitted!");
+  } catch(e) {
+    return null
+  }
+}
+
+const formModel = reactive({
+  email: "",
+  comments: ""
+})
 </script>
 
 <template>
@@ -22,6 +47,7 @@ import MoonIcon from "../Icon/MoonIcon.vue";
     >
       <UiInput
         type="email"
+        v-model="formModel.email"
         label="Email"
         autocomplete="email"
         pattern="^.{2,99}$"
@@ -31,12 +57,13 @@ import MoonIcon from "../Icon/MoonIcon.vue";
 
       <UiInput
         type="textarea"
-        label="Comment"
-        placeholder="Type your comments"
+        v-model="formModel.comments"
+        label="Comments"
+        placeholder="Enter your comments"
         :validate="() => {}"
       />
 
-      <Button type="submit" class="justify-self-center min-w-[18rem]">
+      <Button type="submit" class="justify-self-center min-w-[18rem]" v-on:click="addComment(formModel.email, formModel.comments)">
         Submit
       </Button>
     </UiForm>
