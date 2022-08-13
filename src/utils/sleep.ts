@@ -18,7 +18,7 @@ export async function sleep(
       : (_duration as Duration) >= 0
       ? _duration
       : 0
-  ) as number;
+  ) as number | any;
 
   const callback = typeof _duration === "function" ? _duration : _callback;
 
@@ -27,7 +27,8 @@ export async function sleep(
   }
 
   if (typeof callback === "function") {
-    const timeout = setTimeout(() => {
+    let timeout: any = undefined;
+    timeout = setTimeout(() => {
       callback();
 
       clearTimeout(timeout);
@@ -37,7 +38,8 @@ export async function sleep(
   }
 
   return new Promise((resolve) => {
-    const timeout = setTimeout(() => {
+    let timeout: any = undefined;
+    timeout = setTimeout(() => {
       resolve(timeout);
 
       clearTimeout(timeout);

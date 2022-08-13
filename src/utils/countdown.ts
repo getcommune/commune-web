@@ -5,7 +5,7 @@ export default class Countdown {
   private duration = 0;
   private onDone: () => Countdown;
   private onUpdate: () => Countdown;
-  private timeoutId = 0;
+  private timeoutId: any = 0;
   private startTime = 0;
   public done = true;
   public stopped = true;
