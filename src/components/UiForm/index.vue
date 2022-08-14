@@ -2,8 +2,6 @@
 import { getCurrentInstance, h, resolveComponent } from "@vue/runtime-core";
 import { nextAnimFrame } from "/src/utils/index.ts";
 
-const form = (d, c) => h("form", d, c);
-
 export default {
   name: "UiForm",
   emits: ["submit-clicked", "submit-form"],
@@ -22,18 +20,26 @@ export default {
       await nextAnimFrame();
       const isValid = i.subTree.el.reportValidity();
 
+      console.log({
+        isValid,
+        i,
+      });
+
       if (isValid) {
         emit("submit-form");
       }
     };
 
     return function () {
-      return form(
+      return h(
+        "form",
         {
           name: this.name,
           class: ["ui-form", `dark-theme`],
           onSubmit: (e) => {
+            console.log('roo');
             e.preventDefault();
+            console.log(e);
           },
         },
         [
