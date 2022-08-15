@@ -5,6 +5,10 @@ import Overlay from "../Overlay/index.vue";
 import Content from "./Content.vue";
 
 const breakpoint = useBreakpoint();
+
+const onFormSubmitted = (evt: Record<string, any>) => {
+  console.log(evt);
+};
 </script>
 
 <template>
@@ -52,7 +56,7 @@ const breakpoint = useBreakpoint();
             <div
               class="bg-background dark:bg-surface-d shadow-xl dark:shadow-none dark:border border-divider-d relative z-1 min-w-[40rem] rounded-lg max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain"
             >
-              <Content />
+              <Content @form-submitted="onFormSubmitted" />
             </div>
           </div>
         </UiTransition>

@@ -8,6 +8,10 @@
   @apply bg-background-d text-background/90;
 }
 
+:root.dark select {
+  @apply bg-surface-d text-background/90;
+}
+
 :root {
   min-height: 100vh;
   font-family: "Inter", sans-serif;
