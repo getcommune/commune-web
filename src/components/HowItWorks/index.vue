@@ -2,7 +2,7 @@
 import Img from "../Img/index.vue";
 const sections = [
   {
-    title: "Search for an apartment",
+    title: "Search For An Apartment",
     content:
       "Run a quick search for apartments based on you unique preferences.",
   },
@@ -22,7 +22,7 @@ const sections = [
 <template>
   <section class="relative isolate mt-16 xl:mt-28 lg:mt-40">
     <h2 id="how-it-works" class="text-center font-bold text-xl lg:text-3xl">
-      How Commune works?
+      How It Works
     </h2>
     <div
       class="flex-col lg:flex-row flex lg:text-left lg:space-x-4 pt-4 lg:pt-8"

@@ -23,13 +23,12 @@ const breakpoint = useBreakpoint();
         </h2>
 
         <p class="text-base lg:text-lg mt-4 lg:mt-6 opacity-90">
-          Save time and money when you rent or list a home on Commune. Get
-          access to available homes from anywhere. List your property for rent
-          at no cost.
+          Save time and money when you rent or list a home on Commune. List your property for rent
+          at no cost. Earn a commission off rent when you refer a homeowner to us.
         </p>
 
         <Button class="mt-8" @click="state.waitingListModal = true">
-          Join the waitlist
+          Get Early Access
         </Button>
       </div>
 

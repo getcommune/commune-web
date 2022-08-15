@@ -104,8 +104,17 @@ onMounted(() => {
 
 <template>
   <section class="p-4 lg:p-8">
-    <h2 class="font-bold text-lg lg:text-2xl mt-2 lg:mt-4">
-    </h2>
+    <div class="lg:max-w-[min(33rem,55%)] order-2 lg:order-1 px-4 lg:px-0">
+      <h2 class="font-bold text-lg lg:text-2xl mt-2 lg:mt-4">
+        Count Me In!
+      </h2>
+    </div>
+    <div class="lg:max-w-[min(33rem,55%)] order-2 lg:order-1 px-4 lg:px-0">
+      <h1 class="font-light text-lg lg:text-2xl mt-2 lg:mt-4">
+        Get early access, news and updates.
+      </h1>
+    </div>
+    
     <UiForm
       v-slot="{submit}"
       name="joinList"
