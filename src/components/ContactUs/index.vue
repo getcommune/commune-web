@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 import { getFirestore, collection, addDoc } from "@firebase/firestore";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 
 import UiForm from "../UiForm/index.vue";
 import UiInput from "../UiInput/index.vue";
@@ -12,24 +12,36 @@ import MoonIcon from "../Icon/MoonIcon.vue";
 
 import firebaseApp from "../../../firebaseInit";
 
+const emits = defineEmits(["form-submitted", "submit-error"]);
+
 const db = getFirestore(firebaseApp);
+const loading = ref(false);
 
 const addComment = async (email: string, comments: string) => {
   try {
+    loading.value = true;
+
+    const { email, comments } = formModel;
+
     const docRef = await addDoc(collection(db, "questionbox"), {
       email: email,
       content: comments
     });
-    alert("Submitted!");
+    emits('form-submitted', docRef);
   } catch(e) {
-    return null
+    emits('submit-error');
+  } finally {
+    loading.value = false;
+    Object.assign(formModel, initialState);
   }
 }
 
-const formModel = reactive({
+const initialState = {
   email: "",
   comments: ""
-})
+}
+
+const formModel = reactive({ ...initialState })
 </script>
 
 <template>
@@ -41,6 +53,8 @@ const formModel = reactive({
     </div>
 
     <UiForm
+      v-slot="{submit}"
+      @submit-form="addComment"
       name="contactUs"
       action="."
       class="max-w-xs lg:max-w-lg mx-auto grid gap-y-5 lg:gap-y-8 mt-6 mb-20 lg:mt-12"
@@ -53,17 +67,19 @@ const formModel = reactive({
         pattern="^.{2,99}$"
         placeholder="Jane@gmail.com"
         :validate="() => {}"
+        required
       />
 
       <UiInput
         type="textarea"
         v-model="formModel.comments"
         label="Comments"
-        placeholder="Enter your comments"
+        placeholder="Enter your message"
         :validate="() => {}"
+        required
       />
 
-      <Button type="submit" class="justify-self-center min-w-[18rem]" v-on:click="addComment(formModel.email, formModel.comments)">
+      <Button type="submit" class="justify-self-center min-w-[18rem]" :loading="loading" @click="submit">
         Submit
       </Button>
     </UiForm>

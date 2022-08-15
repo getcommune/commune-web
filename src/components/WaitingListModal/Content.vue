@@ -37,6 +37,7 @@ const addToWaitlist = async () => {
     emits("submit-error");
   } finally {
     loading.value = false;
+    Object.assign(formModel, initialState);
   }
 };
 
@@ -55,7 +56,7 @@ const availabilitySelect = [
   { value: "available", label: "Available" },
 ];
 
-const formModel = reactive({
+const initialState = {
   name: "",
   email: "",
   phone: "",
@@ -63,7 +64,9 @@ const formModel = reactive({
   rooms: "",
   availability: "",
   managerNumber: "",
-});
+}
+
+let formModel = reactive({ ...initialState });
 
 onMounted(() => {
   var autocomplete = new google.maps.places.Autocomplete(
