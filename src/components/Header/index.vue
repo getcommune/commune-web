@@ -21,10 +21,13 @@ const hashClicked = (id: string) => {
   const section = document.getElementById(id);
 
   if (section) {
+    // document.documentElement.scrollTo({
+    //   top: section.offsetTop+100,
+    //   behavior: "smooth",
+    // });
 
-    document.documentElement.scrollTo({
-      top: section.offsetTop+100,
-      behavior: "smooth",
+    section.scrollIntoView({
+      block: "center",
     });
   }
 };
@@ -41,9 +44,8 @@ const links = [
   {
     title: "Contact us",
     id: "contact-us",
-  }
-]
-
+  },
+];
 </script>
 
 <template>
@@ -77,7 +79,11 @@ const links = [
       <template v-if="!breakpoint.isMobile">
         <nav>
           <ul class="flex items-center space-x-11">
-            <li v-for="link in links" :key="link.title" @click="hashClicked(link.id)">
+            <li
+              v-for="link in links"
+              :key="link.title"
+              @click="hashClicked(link.id)"
+            >
               <a :href="`#${link.id}`">
                 {{ link.title }}
               </a>
@@ -151,7 +157,11 @@ const links = [
                 >
                   <nav>
                     <ul class="grid gap-y-9">
-                      <li v-for="link in links" :key="link.title" @click="hashClicked(link.id)">
+                      <li
+                        v-for="link in links"
+                        :key="link.title"
+                        @click="hashClicked(link.id)"
+                      >
                         <a :href="`#${link.id}`">
                           {{ link.title }}
                         </a>

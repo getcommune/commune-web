@@ -3,26 +3,27 @@ import UiForm from "../UiForm/index.vue";
 import UiInput from "../UiInput/index.vue";
 import Button from "../Button/index.vue";
 import UiSelect from "../UiSelect/index.vue";
-import { reactive, defineComponent, onMounted, onUnmounted, ref } from "vue";
-import { 
-  getFirestore, collection, addDoc
-   } from "firebase/firestore";
 
+import { reactive, defineComponent, onMounted, onUnmounted, ref } from "vue";
+
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
 
 import firebaseApp from "../../../firebaseInit";
 
+const emits = defineEmits(["form-submitted", "submit-error"]);
 
 const db = getFirestore(firebaseApp);
-const loading = ref()
+const loading = ref(false);
 
 const addToWaitlist = async () => {
   try {
     loading.value = true;
-    const { 
-      name, email, location, 
-      availability, rooms, phone, managerNumber } = formModel
-    await addDoc(collection(db, 'waitlist'), {
+
+    const { name, email, location, availability, rooms, phone, managerNumber } =
+      formModel;
+
+    await addDoc(collection(db, "waitlist"), {
       name,
       email,
       location,
@@ -31,17 +32,17 @@ const addToWaitlist = async () => {
       phone,
       managerNumber
     });
-    alert("Submitted!");
-  } catch(e) {
-    alert("Failed to submit!")
+    emits("form-submitted");
+  } catch (e) {
+    emits("submit-error");
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 const roomsSelect = [
   { label: "", value: "" },
-  { value: "studio", label: "Studio Apartment"},
+  { value: "studio", label: "Studio Apartment" },
   { value: "1", label: "1" },
   { value: "2", label: "2" },
   { value: "3", label: "3" },
@@ -120,6 +121,7 @@ onMounted(() => {
         v-model="formModel.email"
         label="Email"
         type="email"
+        required
         placeholder="markhillary@gmail.com"
       />
 
