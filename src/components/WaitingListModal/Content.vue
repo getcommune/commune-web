@@ -111,7 +111,7 @@ onMounted(() => {
     </div>
     <div class="lg:max-w-[min(33rem,55%)] order-2 lg:order-1 px-4 lg:px-0">
       <h1 class="font-light text-lg lg:text-2xl mt-2 lg:mt-4">
-        Get early access, news and updates.
+        Get early access, news & updates.
       </h1>
     </div>
     
