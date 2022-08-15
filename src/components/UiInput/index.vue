@@ -45,6 +45,10 @@ export default {
       type: String,
       default: undefined,
     },
+    id: {
+      type: String,
+      default: undefined,
+    },
   },
   emits: ["update:modelValue"],
   setup(p, { emit, expose }) {
@@ -128,7 +132,7 @@ export default {
     });
 
     return function () {
-      const id = `uit-${this._.uid}`;
+      const id = props.value.id || `uit-${this._.uid}`;
 
       let getValidation = validation();
 
