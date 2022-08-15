@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import { ref } from "vue";
 import UiForm from "../UiForm/index.vue";
 import UiInput from "../UiInput/index.vue";
 import Button from "../Button/index.vue";
 import UiSelect from "../UiSelect/index.vue";
 
-import { reactive } from "vue";
+import { reactive, defineComponent, onMounted, onUnmounted, ref } from "vue";
+
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import VueGoogleAutocomplete from "vue-google-autocomplete";
 
 import firebaseApp from "../../../firebaseInit";
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
 
 const db = getFirestore(firebaseApp);
-
 const loading = ref(false);
 
 const addToWaitlist = async () => {
@@ -23,17 +23,16 @@ const addToWaitlist = async () => {
     const { name, email, location, availability, rooms, phone, managerNumber } =
       formModel;
 
-    const docRef = await addDoc(collection(db, "waitlist"), {
+    await addDoc(collection(db, "waitlist"), {
       name,
       email,
       location,
       availability,
       rooms,
       phone,
-      managerNumber,
+      managerNumber
     });
-
-    emits("form-submitted", docRef);
+    emits("form-submitted");
   } catch (e) {
     emits("submit-error");
   } finally {
@@ -48,8 +47,6 @@ const roomsSelect = [
   { value: "2", label: "2" },
   { value: "3", label: "3" },
   { value: "4", label: "4" },
-  // { value: "5 - 10", label: "5 - 10" },
-  // { value: "11 - 20", label: "11 - 20" },
 ];
 
 const availabilitySelect = [
@@ -67,16 +64,47 @@ const formModel = reactive({
   availability: "",
   managerNumber: "",
 });
+
+onMounted(() => {
+  var autocomplete = new google.maps.places.Autocomplete(
+    document.getElementById("autocomplete") as HTMLInputElement
+  );
+})
+</script>
+
+<script lang="ts">
+  export default defineComponent({
+    components: { VueGoogleAutocomplete },
+
+    data: function() {
+      return {
+        address: null,
+      };
+    },
+    onMounted() {
+      (this.$refs.address as HTMLElement).focus();
+    },
+    methods: {
+      /**
+         * When the location found
+         * @param {Object} addressData Data of the found location
+         * @param {Object} placeResultData PlaceResult object
+         * @param {String} id Input container ID
+         */
+      getAddressData: ((addressData: HTMLElement, placeResultData: any, id: any) => {
+        // @ts-ignore
+        this.address = addressData;
+      })
+    }
+  })
 </script>
 
 <template>
   <section class="p-4 lg:p-8">
     <h2 class="font-bold text-lg lg:text-2xl mt-2 lg:mt-4">
-      Join the waitlist
     </h2>
-
     <UiForm
-      v-slot="{ submit }"
+      v-slot="{submit}"
       name="joinList"
       action="."
       class="max-w-sm lg:max-w-lg mx-auto grid gap-y-5 lg:gap-y-8 mt-4 lg:mt-12"
@@ -106,6 +134,7 @@ const formModel = reactive({
       />
 
       <UiInput
+        id="autocomplete"
         v-model="formModel.location"
         label="Apartment Location"
         placeholder="Lekki Phase 1"
@@ -159,7 +188,7 @@ const formModel = reactive({
       />
 
       <Button type="submit" class="my-4" :loading="loading" @click="submit">
-        Submit
+         Submit 
       </Button>
     </UiForm>
   </section>
