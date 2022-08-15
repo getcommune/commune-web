@@ -7,7 +7,6 @@ import UiSelect from "../UiSelect/index.vue";
 import { reactive, defineComponent, onMounted, onUnmounted, ref } from "vue";
 
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import VueGoogleAutocomplete from "vue-google-autocomplete";
 
 import firebaseApp from "../../../firebaseInit";
 
@@ -75,46 +74,16 @@ onMounted(() => {
 })
 </script>
 
-<script lang="ts">
-  export default defineComponent({
-    components: { VueGoogleAutocomplete },
-
-    data: function() {
-      return {
-        address: null,
-      };
-    },
-    onMounted() {
-      (this.$refs.address as HTMLElement).focus();
-    },
-    methods: {
-      /**
-         * When the location found
-         * @param {Object} addressData Data of the found location
-         * @param {Object} placeResultData PlaceResult object
-         * @param {String} id Input container ID
-         */
-      getAddressData: ((addressData: HTMLElement, placeResultData: any, id: any) => {
-        // @ts-ignore
-        this.address = addressData;
-      })
-    }
-  })
-</script>
-
 <template>
   <section class="p-4 lg:p-8">
     <div class="lg:max-w-[min(33rem,55%)] order-2 lg:order-1 px-4 lg:px-0">
       <h2 class="font-bold text-lg lg:text-2xl mt-2 lg:mt-4">
         Count Me In!
       </h2>
-    </div>
-    <div class="lg:max-w-[min(33rem,55%)] order-2 lg:order-1 px-4 lg:px-0">
-      <h1 class="font-light text-lg lg:text-2xl mt-2 lg:mt-4">
+      <h1 class="font-light text-lg lg:text-2xl lg:mt-1">
         Get early access, news & updates.
       </h1>
-    </div>
-    
+    </div>   
     <UiForm
       v-slot="{submit}"
       name="joinList"
