@@ -47,9 +47,9 @@ const formModel = reactive({ ...initialState })
 <template>
   <section id="contact-us" class="mt-24">
     <div class="text-center">
-      <h2 class="font-semibold text-xl lg:text-2xl">Have questions?</h2>
+      <h2 class="font-semibold text-xl lg:text-2xl">Have Questions?</h2>
 
-      <p>Please contact us.</p>
+      <p>Please contact us</p>
     </div>
 
     <UiForm
@@ -73,7 +73,7 @@ const formModel = reactive({ ...initialState })
       <UiInput
         type="textarea"
         v-model="formModel.comments"
-        label="Comments"
+        label="Message"
         placeholder="Enter your message"
         :validate="() => {}"
         required
