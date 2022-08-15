@@ -34,7 +34,7 @@ const hashClicked = (id: string) => {
 
 const links = [
   {
-    title: "About us",
+    title: "About Us",
     id: "about-us",
   },
   {
@@ -42,7 +42,7 @@ const links = [
     id: "key-offerings",
   },
   {
-    title: "Contact us",
+    title: "Contact Us",
     id: "contact-us",
   },
 ];
@@ -92,7 +92,7 @@ const links = [
         </nav>
 
         <Button @click="state.waitingListModal = true">
-          Join the waitlist
+          Get Early Access
         </Button>
       </template>
 
@@ -179,7 +179,7 @@ const links = [
                       }
                     "
                   >
-                    Join the waitlist
+                    Get Early Access
                   </Button>
                 </div>
               </UiTransition>
