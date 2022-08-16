@@ -36,7 +36,7 @@ import Img from "../Img/index.vue";
 
       <div class="lg:w-[50%] order-1 lg:order-2 px-4 lg:px-0 mb-8 lg:mb-0">
         <span class="mx-auto lg:mx-[initial] max-w-xs">
-          <Img src="KeyOfferings.png" alt="Image" />
+          <Img src="https://res.cloudinary.com/themachine/image/upload/v1660630057/commune-web/public/KeyOfferings_y9gh8q.png" alt="Image" />
         </span>
       </div>
     </div>
