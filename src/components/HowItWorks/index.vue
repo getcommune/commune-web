@@ -30,7 +30,7 @@ const sections = [
       <div class="lg:w-[50%]">
         <div class="flex justify-start">
           <span class="w-[min(32rem,50vw)] inline-block">
-            <Img load-effect="fade" src="HowItWorks.png" alt="Image" />
+            <Img load-effect="fade" src="https://res.cloudinary.com/themachine/image/upload/v1660630058/commune-web/public/HowItWorks_jmmcor.png" alt="Image" />
           </span>
         </div>
       </div>
