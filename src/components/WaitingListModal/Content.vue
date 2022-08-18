@@ -5,12 +5,22 @@ import Button from "../Button/index.vue";
 import UiSelect from "../UiSelect/index.vue";
 
 import { reactive, defineComponent, onMounted, onUnmounted, ref } from "vue";
-
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { MapboxSearch, SearchSession, MapboxAutofill, SessionToken } from '@mapbox/search-js-core';
+import emailjs from '@emailjs/browser';
 
 import firebaseApp from "../../../firebaseInit";
 
+const PK = import.meta.env.VITE_MAPBOX_PK;
+const SK = import.meta.env.VITE_MAPBOX_SK;
+const PUBKEY =  import.meta.env.VITE_EMAILJS1_PUBKEY;
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_WAITLIST_TEMPLATE_ID;
+
 const emits = defineEmits(["form-submitted", "submit-error"]);
+
+const autofill = new MapboxAutofill({ accessToken: PK });
+const sessionToken = new SessionToken();
 
 const db = getFirestore(firebaseApp);
 const loading = ref(false);
@@ -32,6 +42,14 @@ const addToWaitlist = async () => {
       managerNumber
     });
     emits("form-submitted");
+    try {
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY)
+        .then(function(response) {
+        }, function(error) {
+        });
+    } catch(e) {
+      emits('submit-error');
+    }
   } catch (e) {
     emits("submit-error");
   } finally {
@@ -67,6 +85,29 @@ const initialState = {
 
 let formModel = reactive({ ...initialState });
 
+
+const autocomplete = async () => {
+    // const result = await search.suggest('Washington D.C', {sessionToken});
+    const fillResult = await autofill.suggest('Washington D.C', {sessionToken});
+
+    if (fillResult.suggestions.length === 0) {
+      console.log('LENGTH: 0');
+      console.log(formModel.location);
+    }
+
+    const suggestion = fillResult.suggestions[1];
+    const { features } = await autofill.retrieve(suggestion, { sessionToken });
+    console.log(features);
+
+    /*const suggestion = result.suggestions[0];
+    if(search.canRetrieve(suggestion)) {
+      const { features } = await autofill.retrieve(suggestion, { sessionToken })
+      console.log('FEATURES: ', features);
+    } else if (search.canSuggest(suggestion)) {
+      await search.suggest('New York City', { sessionToken });
+    }*/
+  }
+
 onMounted(() => {
   var autocomplete = new google.maps.places.Autocomplete(
     document.getElementById("autocomplete") as HTMLInputElement
@@ -77,13 +118,14 @@ onMounted(() => {
 <template>
   <section class="p-4 lg:p-8">
     <div class="lg:max-w-[min(33rem,55%)] order-2 lg:order-1 px-4 lg:px-0">
-      <h2 class="font-bold text-lg lg:text-2xl mt-2 lg:mt-4">
+      <h2 class="text-primary-base dark:text-[#6489d0] font-bold text-lg lg:text-2xl mt-2 lg:mt-4">
         Count Me In!
       </h2>
       <h1 class="font-light text-lg lg:text-2xl lg:mt-1">
         Get early access, news & updates.
       </h1>
-    </div>   
+    </div>
+    
     <UiForm
       v-slot="{submit}"
       name="joinList"
@@ -113,10 +155,14 @@ onMounted(() => {
         type="tel"
         required
       />
+      <!--<form>
+        <input type="text" autocomplete="street-address" />
+      </form>-->
 
       <UiInput
         id="autocomplete"
         v-model="formModel.location"
+        @change="autocomplete()"
         label="Apartment Location"
         placeholder="Lekki Phase 1"
         required
@@ -169,7 +215,7 @@ onMounted(() => {
       />
 
       <Button type="submit" class="my-4" :loading="loading" @click="submit">
-         Submit 
+         I'm in!
       </Button>
     </UiForm>
   </section>
