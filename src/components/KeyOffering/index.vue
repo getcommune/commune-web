@@ -4,7 +4,7 @@ import Img from "../Img/index.vue";
 
 <template>
   <section class="relative isolate mt-16 xl:mt-28 lg:mt-40">
-    <h2 id="key-offerings" class="text-center font-bold text-xl lg:text-3xl">
+    <h2 id="key-offerings" class="text-primary-base dark:text-[#6489d0] text-center font-bold text-xl lg:text-3xl">
       Key Offerings
     </h2>
     <div
@@ -14,7 +14,7 @@ import Img from "../Img/index.vue";
         class="order-2 lg:order-1 lg:w-[50%] grid gap-y-6 lg:gap-y-12 content-start px-4 lg:px-0"
       >
         <div>
-          <h3 class="text-lg lg:text-2xl font-medium">Find An Apartment</h3>
+          <h3 class="text-primary-base dark:text-[#6489d0] text-lg lg:text-2xl font-medium">Find An Apartment</h3>
 
           <p class="mt-2 lg:mt-4 lg:text-lg">
             Save time and money spent in checking houses you will not live in -
@@ -24,7 +24,7 @@ import Img from "../Img/index.vue";
         </div>
 
         <div>
-          <h3 class="text-lg lg:text-2xl font-medium">Find A Flatmate</h3>
+          <h3 class="text-primary-base dark:text-[#6489d0] text-lg lg:text-2xl font-medium">Find A Flatmate</h3>
 
           <p class="mt-2 lg:mt-4 lg:text-lg">
             Our preference-based matching system will suggest users with
