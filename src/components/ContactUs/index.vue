@@ -21,7 +21,7 @@ const PUBKEY =  import.meta.env.VITE_EMAILJS1_PUBKEY;
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_CONTACTUS_TEMPLATE_ID;
 
-const addComment = async (email: string, comments: string) => {
+const addComment = async () => {
   try {
     loading.value = true;
 
@@ -29,14 +29,14 @@ const addComment = async (email: string, comments: string) => {
 
     await addDoc(collection(db, "questionbox"), {
       email: email,
-      content: comments
+      content: message
     });
     emits('form-submitted');
     try {
       emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY)
-        .then(function(response) {
+        .then(() => {
           emits('form-submitted');
-        }, function(error) {
+        }, () => {
           emits('submit-error')
         });
     } catch(e) {
