@@ -21,7 +21,7 @@ const sections = [
 
 <template>
   <section class="relative isolate mt-16 xl:mt-28 lg:mt-40">
-    <h2 id="how-it-works" class="text-center font-bold text-xl lg:text-3xl">
+    <h2 id="how-it-works" class="text-primary-base dark:text-[#6489d0] text-center font-bold text-xl lg:text-3xl">
       How It Works
     </h2>
     <div
@@ -39,7 +39,7 @@ const sections = [
         class="mt-8 lg:mt-28 lg:w-[min(40rem,50%)] lg:max-w-lg px-4 lg:px-0 grid gap-y-8 lg:gap-y-16 content-start"
       >
         <div v-for="section in sections" :key="section.title">
-          <h3 class="font-semibold lg:text-xl mb-1 lg:mb-2">
+          <h3 class="text-primary-base dark:text-[#6489d0] font-semibold lg:text-xl mb-1 lg:mb-2">
             {{ section.title }}
           </h3>
           <p>

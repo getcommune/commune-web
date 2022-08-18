@@ -7,7 +7,7 @@ const breakpoint = useBreakpoint();
 
 <template>
   <section class="relative isolate mt-16 xl:mt-28 lg:mt-40">
-    <h2 id="about-us" class="text-center font-bold text-xl lg:text-3xl">
+    <h2 id="about-us" class="text-primary-base dark:text-[#6489d0] text-center font-bold text-xl lg:text-3xl">
       About Us
     </h2>
     <div
@@ -22,7 +22,7 @@ const breakpoint = useBreakpoint();
       </div>
 
       <div class="mt-8 lg:mt-20 lg:w-[min(40rem,50%)] lg:max-w-lg px-4 lg:px-0">
-        <h3 class="font-semibold text-xl lg:text-2xl mb-7 lg:mb-11">
+        <h3 class="font-semibold text-xl lg:text-2xl mb-7 lg:mb-9">
           Open housing solutions for modern Africa.
         </h3>
 
