@@ -62,11 +62,11 @@ const formModel = reactive({ ...initialState });
 const storeLinks = [
   {
     title: "App store",
-    src: "https://res.cloudinary.com/themachine/image/upload/v1660630051/commune-web/public/appstore-badge_qahgpy.png",
+    src: "https://res.cloudinary.com/themachine/image/upload/v1661027211/commune-web/public/appstore2_kj1mmc",
   },
   {
     title: "Play store",
-    src: "https://res.cloudinary.com/themachine/image/upload/v1660630052/commune-web/public/playstore-badge_uya68q.png",
+    src: "https://res.cloudinary.com/themachine/image/upload/v1661027214/commune-web/public/playstore2_vfuxu1",
   },
 ];
 </script>
@@ -132,11 +132,11 @@ const storeLinks = [
         v-for="(link, i) in storeLinks"
         :key="link.title"
         class="!p-0 max-w-[75vw] max-h-[4rem]"
-        href="#"
+        href=""
       >
         <Img
           :alt="`${i ? 'Playstore' : 'Appstore'} icon`"
-          :src="`${i ? 'playstore' : 'applestore'}.png`"
+          :src="`${i ? link.src : link.src}.png`"
           load-class="h-full pointer-events-none"
         />
       </Button>
