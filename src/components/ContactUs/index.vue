@@ -89,7 +89,7 @@ const storeLinks = [
       @submit-form="addComment"
       name="contactUs"
       action="."
-      class="max-w-xs lg:max-w-lg mx-auto grid gap-y-5 lg:gap-y-8 mt-6 mb-20 lg:mt-12"
+      class="max-w-xs lg:max-w-lg mx-auto grid gap-y-5 lg:gap-y-8 mt-6 mb-20 lg:mt-12 px-4"
     >
       <UiInput
         type="email"
