@@ -123,9 +123,11 @@ const storeLinks = [
   </section>
 
   <section class="grid justify-center mb-8">
-    <p class="text-heading mb-6 text-lg text-center">Available soon on</p>
+    <p class="text-heading mb-6 text-lg text-center font-semibold">
+      Available soon on
+    </p>
 
-    <div class="grid md:grid-cols-2 w-full md:max-w-lg gap-4 md:gap-8">
+    <div class="grid md:grid-cols-2 w-full md:max-w-lg gap-5 md:gap-8">
       <Button
         v-for="(link, i) in storeLinks"
         :key="link.title"
