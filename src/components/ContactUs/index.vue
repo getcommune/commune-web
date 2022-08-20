@@ -132,7 +132,6 @@ const storeLinks = [
         v-for="(link, i) in storeLinks"
         :key="link.title"
         class="!p-0 max-w-[75vw] max-h-[4rem]"
-        tag="a"
         href="#"
       >
         <Img

@@ -43,7 +43,7 @@ export default defineComponent({
           {
             default: () => {
               return h(
-                props.value.tag,
+                attrs.href ? "a" : props.value.tag,
                 {
                   type: "button",
                   inert: isInert.value,
