@@ -138,24 +138,6 @@ const storeLinks = [
           :src="`/${i ? 'applestore' : 'googlestore'}.png`"
           load-class="h-full pointer-events-none"
         />
-
-        <!-- <div class="flex items-center justify-start w-full">
-          <div>
-            <AppleLogo v-if="!i" class="w-8 h-8 opacity-80" />
-
-            <PlaystoreLogo v-else class="w-8 h-8 opacity-80" />
-          </div>
-
-          <div class="text-start ml-4">
-            <p class="whitespace-nowrap">
-              {{ !i ? "Download on the" : "GET IT ON" }}
-            </p>
-
-            <strong>
-              {{ !i ? "App store" : "Google play" }}
-            </strong>
-          </div>
-        </div> -->
       </Button>
     </div>
   </section>
