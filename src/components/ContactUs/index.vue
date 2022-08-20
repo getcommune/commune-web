@@ -135,7 +135,7 @@ const storeLinks = [
       >
         <Img
           :alt="`${i ? 'Playstore' : 'Appstore'} icon`"
-          :src="`/${i ? 'applestore' : 'googlestore'}.png`"
+          :src="`/${i ? 'playstore' : 'applestore'}.png`"
           load-class="h-full pointer-events-none"
         />
       </Button>
