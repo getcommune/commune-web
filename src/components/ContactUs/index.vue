@@ -127,17 +127,19 @@ const storeLinks = [
   <section class="grid justify-center mb-8">
     <p class="text-heading mb-6 text-lg text-center">Available soon on</p>
 
-    <div class="grid md:grid-cols-2 w-full md:max-w-lg gap-8">
+    <div class="grid md:grid-cols-2 w-full md:max-w-lg gap-4 md:gap-8">
       <Button
         v-for="(link, i) in storeLinks"
         :key="link.title"
-        class="!ring-2 min-h-[3.75rem] md:min-h-[4.25rem]"
-        :class="{
-          '!bg-white !text-background-d !ring-background-d/50': theme.light,
-          '!bg-surface-d !text-background !ring-background/50': theme.dark,
-        }"
+        class="!p-0 max-w-[75vw] max-h-[4rem]"
       >
-        <div class="flex items-center justify-start w-full">
+        <Img
+          :alt="`${i ? 'Playstore' : 'Appstore'} icon`"
+          :src="`/${i ? 'applestore' : 'googlestore'}.png`"
+          load-class="h-full pointer-events-none"
+        />
+
+        <!-- <div class="flex items-center justify-start w-full">
           <div>
             <AppleLogo v-if="!i" class="w-8 h-8 opacity-80" />
 
@@ -153,7 +155,7 @@ const storeLinks = [
               {{ !i ? "App store" : "Google play" }}
             </strong>
           </div>
-        </div>
+        </div> -->
       </Button>
     </div>
   </section>
