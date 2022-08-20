@@ -12,8 +12,6 @@ import MoonIcon from "../Icon/MoonIcon.vue";
 
 import firebaseApp from "../../../firebaseInit";
 import Img from "../Img/index.vue";
-import AppleLogo from "../Icon/AppleLogo.vue";
-import PlaystoreLogo from "../Icon/PlaystoreLogo.vue";
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
 

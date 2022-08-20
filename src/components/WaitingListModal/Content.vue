@@ -4,16 +4,15 @@ import UiInput from "../UiInput/index.vue";
 import Button from "../Button/index.vue";
 import UiSelect from "../UiSelect/index.vue";
 
-import { reactive, defineComponent, onMounted, onUnmounted, ref } from "vue";
+import { reactive, onMounted, ref } from "vue";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { MapboxSearch, SearchSession, MapboxAutofill, SessionToken } from '@mapbox/search-js-core';
-import emailjs from '@emailjs/browser';
+import { MapboxAutofill, SessionToken } from "@mapbox/search-js-core";
+import emailjs from "@emailjs/browser";
 
 import firebaseApp from "../../../firebaseInit";
 
 const PK = import.meta.env.VITE_MAPBOX_PK;
-const SK = import.meta.env.VITE_MAPBOX_SK;
-const PUBKEY =  import.meta.env.VITE_EMAILJS1_PUBKEY;
+const PUBKEY = import.meta.env.VITE_EMAILJS1_PUBKEY;
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_WAITLIST_TEMPLATE_ID;
 
@@ -39,16 +38,16 @@ const addToWaitlist = async () => {
       availability,
       rooms,
       phone,
-      managerNumber
+      managerNumber,
     });
     emits("form-submitted");
     try {
-      emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY)
-        .then(function(response) {
-        }, function(error) {
-        });
-    } catch(e) {
-      emits('submit-error');
+      emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY).then(
+        function (response) {},
+        function (error) {}
+      );
+    } catch (e) {
+      emits("submit-error");
     }
   } catch (e) {
     emits("submit-error");
@@ -81,53 +80,54 @@ const initialState = {
   rooms: "",
   availability: "",
   managerNumber: "",
-}
+};
 
 let formModel = reactive({ ...initialState });
 
-
 const autocomplete = async () => {
-    // const result = await search.suggest('Washington D.C', {sessionToken});
-    const fillResult = await autofill.suggest('Washington D.C', {sessionToken});
+  // const result = await search.suggest('Washington D.C', {sessionToken});
+  const fillResult = await autofill.suggest("Washington D.C", { sessionToken });
 
-    if (fillResult.suggestions.length === 0) {
-      console.log('LENGTH: 0');
-      console.log(formModel.location);
-    }
+  if (fillResult.suggestions.length === 0) {
+    console.log("LENGTH: 0");
+    console.log(formModel.location);
+  }
 
-    const suggestion = fillResult.suggestions[1];
-    const { features } = await autofill.retrieve(suggestion, { sessionToken });
-    console.log(features);
+  const suggestion = fillResult.suggestions[1];
+  const { features } = await autofill.retrieve(suggestion, { sessionToken });
+  console.log(features);
 
-    /*const suggestion = result.suggestions[0];
+  /*const suggestion = result.suggestions[0];
     if(search.canRetrieve(suggestion)) {
       const { features } = await autofill.retrieve(suggestion, { sessionToken })
       console.log('FEATURES: ', features);
     } else if (search.canSuggest(suggestion)) {
       await search.suggest('New York City', { sessionToken });
     }*/
-  }
+};
 
 onMounted(() => {
   var autocomplete = new google.maps.places.Autocomplete(
     document.getElementById("autocomplete") as HTMLInputElement
   );
-})
+});
 </script>
 
 <template>
   <section class="p-4 lg:p-8">
-    <div class="lg:max-w-[min(33rem,55%)] order-2 lg:order-1 px-4 lg:px-0">
-      <h2 class="text-primary-base dark:text-[#6489d0] font-bold text-lg lg:text-2xl mt-2 lg:mt-4">
+    <div class="lg:max-w-[min(33rem,55%)] order-2 lg:order-1 pr-4 lg:px-0">
+      <h2
+        class="text-primary-base dark:text-[#6489d0] font-bold text-lg lg:text-2xl mt-2 lg:mt-4"
+      >
         Count Me In!
       </h2>
       <h1 class="font-light text-lg lg:text-2xl lg:mt-1">
         Get early access, news & updates.
       </h1>
     </div>
-    
+
     <UiForm
-      v-slot="{submit}"
+      v-slot="{ submit }"
       name="joinList"
       action="."
       class="max-w-sm lg:max-w-lg mx-auto grid gap-y-5 lg:gap-y-8 mt-4 lg:mt-12"
@@ -155,9 +155,8 @@ onMounted(() => {
         type="tel"
         required
       />
-      <!--<form>
-        <input type="text" autocomplete="street-address" />
-      </form>-->
+
+      <!-- <input type="text" autocomplete="street-address" /> -->
 
       <UiInput
         id="autocomplete"
@@ -215,7 +214,7 @@ onMounted(() => {
       />
 
       <Button type="submit" class="my-4" :loading="loading" @click="submit">
-         I'm in!
+        Submit
       </Button>
     </UiForm>
   </section>
