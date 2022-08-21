@@ -43,7 +43,7 @@ export default defineComponent({
           {
             default: () => {
               return h(
-                props.value.tag,
+                attrs.href ? "a" : props.value.tag,
                 {
                   type: "button",
                   inert: isInert.value,
@@ -81,5 +81,6 @@ export default defineComponent({
 .Button {
   @apply inline-flex justify-center items-center bg-primary-base dark:bg-primary-base-d text-background h-14 px-6 rounded-[0.9rem] before:bg-current before:-z-1 relative isolate before:transition-opacity can-hover:hover:before:opacity-5 click-active:before:opacity-20 before:opacity-0 transition-[transform,box-shadow] click-active:scale-[0.99] focus-visible:ring-2 ring-offset-2 border-none outline-none ring-offset-background dark:ring-offset-background-d ring-primary-base dark:ring-primary-base-d font-medium text-base lg:text-lg select-none;
   touch-action: manipulation;
+  appearance: none;
 }
 </style>
