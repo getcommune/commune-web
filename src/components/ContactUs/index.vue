@@ -2,6 +2,8 @@
 import { getFirestore, collection, addDoc } from "@firebase/firestore";
 import { reactive, ref } from "vue";
 import emailjs from "@emailjs/browser";
+import { useToast } from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
 import UiForm from "../UiForm/index.vue";
 import UiInput from "../UiInput/index.vue";
@@ -14,6 +16,7 @@ import firebaseApp from "../../../firebaseInit";
 import Img from "../Img/index.vue";
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
+const $toast = useToast();
 
 const db = getFirestore(firebaseApp);
 const loading = ref(false);
@@ -26,8 +29,12 @@ const addComment = async () => {
     loading.value = true;
 
     const { email, message } = formModel;
+    $toast.success('Your message has been sent!', {
+      position: 'top',
+      duration: 5000
+    });
 
-    await addDoc(collection(db, "questionbox"), {
+    /*await addDoc(collection(db, "questionbox"), {
       email: email,
       content: message,
     });
@@ -43,7 +50,7 @@ const addComment = async () => {
       );
     } catch (e) {
       console.log("ERROR: ", e);
-    }
+    }*/
   } catch (e) {
     emits("submit-error");
   } finally {
@@ -129,6 +136,7 @@ const storeLinks = [
 
     <div class="grid md:grid-cols-2 w-full md:max-w-lg gap-5 md:gap-8">
       <Button
+        color="#fff"
         v-for="(link, i) in storeLinks"
         :key="link.title"
         class="!p-0 max-w-[75vw] max-h-[4rem]"

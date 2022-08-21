@@ -8,6 +8,8 @@ import { reactive, onMounted, ref } from "vue";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { MapboxAutofill, SessionToken } from "@mapbox/search-js-core";
 import emailjs from "@emailjs/browser";
+import { useToast } from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
 import firebaseApp from "../../../firebaseInit";
 
@@ -23,6 +25,7 @@ const sessionToken = new SessionToken();
 
 const db = getFirestore(firebaseApp);
 const loading = ref(false);
+const $toast = useToast();
 
 const addToWaitlist = async () => {
   try {
@@ -41,6 +44,10 @@ const addToWaitlist = async () => {
       managerNumber,
     });
     emits("form-submitted");
+    $toast.success("You're in!", {
+      position: 'top',
+      duration: 5000
+    });
     try {
       emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY).then(
         function (response) {},
@@ -84,7 +91,7 @@ const initialState = {
 
 let formModel = reactive({ ...initialState });
 
-const autocomplete = async () => {
+const autocomplete: any = async () => {
   // const result = await search.suggest('Washington D.C', {sessionToken});
   const fillResult = await autofill.suggest("Washington D.C", { sessionToken });
 
@@ -103,14 +110,14 @@ const autocomplete = async () => {
       console.log('FEATURES: ', features);
     } else if (search.canSuggest(suggestion)) {
       await search.suggest('New York City', { sessionToken });
-    }*/
+    }
 };
 
 onMounted(() => {
-  var autocomplete = new google.maps.places.Autocomplete(
+  new google.maps.places.Autocomplete(
     document.getElementById("autocomplete") as HTMLInputElement
   );
-});
+});*/
 </script>
 
 <template>
