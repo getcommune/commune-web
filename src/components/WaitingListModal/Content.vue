@@ -110,10 +110,10 @@ const autocomplete: any = async () => {
       console.log('FEATURES: ', features);
     } else if (search.canSuggest(suggestion)) {
       await search.suggest('New York City', { sessionToken });
-    }
+    }*/
 };
 
-onMounted(() => {
+/*onMounted(() => {
   new google.maps.places.Autocomplete(
     document.getElementById("autocomplete") as HTMLInputElement
   );
