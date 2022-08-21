@@ -17,7 +17,6 @@ import Img from "../Img/index.vue";
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
 const $toast = useToast();
-
 const db = getFirestore(firebaseApp);
 const loading = ref(false);
 const PUBKEY = import.meta.env.VITE_EMAILJS1_PUBKEY;
@@ -29,16 +28,17 @@ const addComment = async () => {
     loading.value = true;
 
     const { email, message } = formModel;
-    $toast.success('Your message has been sent!', {
-      position: 'top',
-      duration: 5000
-    });
 
-    /*await addDoc(collection(db, "questionbox"), {
+    await addDoc(collection(db, "questionbox"), {
       email: email,
       content: message,
     });
     emits("form-submitted");
+
+    $toast.success('Your message has been sent!', {
+      position: 'top',
+      duration: 5000
+    });
     try {
       emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY).then(
         () => {
@@ -50,7 +50,7 @@ const addComment = async () => {
       );
     } catch (e) {
       console.log("ERROR: ", e);
-    }*/
+    }
   } catch (e) {
     emits("submit-error");
   } finally {
