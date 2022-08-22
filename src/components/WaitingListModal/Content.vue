@@ -8,10 +8,12 @@ import { reactive, onMounted, ref } from "vue";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { MapboxAutofill, SessionToken } from "@mapbox/search-js-core";
 import emailjs from "@emailjs/browser";
-import { useToast } from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 
 import firebaseApp from "../../../firebaseInit";
+import RadioGroup from "../RadioGroup/index.vue";
+import Radio from "../Radio/index.vue";
 
 const PK = import.meta.env.VITE_MAPBOX_PK;
 const PUBKEY = import.meta.env.VITE_EMAILJS1_PUBKEY;
@@ -26,7 +28,7 @@ const sessionToken = new SessionToken();
 const db = getFirestore(firebaseApp);
 const loading = ref(false);
 const $toast = useToast();
-const radioGroup = ref(null);
+const radioGroup = ref<["true" | "false"]>(["true"]);
 
 const addToWaitlist = async () => {
   try {
@@ -34,6 +36,8 @@ const addToWaitlist = async () => {
 
     const { name, email, location, availability, rooms, phone, managerNumber } =
       formModel;
+
+    const radioGroupValue = radioGroup.value[0] === "true";
 
     await addDoc(collection(db, "waitlist"), {
       name,
@@ -46,8 +50,8 @@ const addToWaitlist = async () => {
     });
     emits("form-submitted");
     $toast.success("You're in!", {
-      position: 'top',
-      duration: 5000
+      position: "top",
+      duration: 5000,
     });
     try {
       emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY).then(
@@ -220,12 +224,51 @@ const autocomplete: any = async () => {
         placeholder="If you're referring a homeowner to us"
         type="tel"
       />
-      <h1 class="text-primary-base dark:text-[#6489d0] font-bold text-l lg:text-1xl lg:mt-0">Would you like to receive promotional emails and offers from us?</h1>
-      <section>
-        <input class="font-light text-l lg:pt-4" type="radio" v-model="radioGroup" id="yes" value="true">  Yes please, I'd like to hear about offers and services
-        <br />
-        <input class="font-light text-l lg:mt-2" type="radio" v-model="radioGroup" id="no" value="false">  No, I don't want to hear about offers and services
-      </section>
+
+      <div>
+        <legend class="font-semibold mb-2 text-l lg:text-1xl lg:mt-0">
+          Would you like to receive promotional emails and offers from us?
+        </legend>
+
+        <RadioGroup
+          v-model="radioGroup"
+          :option="['true', 'false']"
+          #default="{ items }"
+          :initial="'true'"
+          tag="ul"
+          class="grid gap-y-4"
+        >
+          <li
+            v-for="({ attrs, item }, index) in items"
+            :key="item"
+            class="flex items-center space-x-4"
+          >
+            <Radio v-bind="attrs">
+              <template #append="{ id, active }">
+                <label :for="id">
+                  {{
+                    index === 0
+                      ? "Yes please, I'd like to hear about offers and services"
+                      : "No, I don't want to hear about offers and services"
+                  }}
+                </label>
+              </template>
+
+              <template #default="{ active }">
+                <div
+                  class="fill-before relative before:bg-primary-base dark:before:bg-primary-base-d rounded-full h-3 w-3 transition-shadow before:transition-transform ring-offset-1 dark:ring-offset-surface-d"
+                  :class="{
+                    'ring-black/40 dark:ring-white/40 ring-1 before:scale-0':
+                      !active,
+                    'ring-2 ring-primary-base/80 dark:ring-primary-base-d/80':
+                      active,
+                  }"
+                ></div>
+              </template>
+            </Radio>
+          </li>
+        </RadioGroup>
+      </div>
       <Button type="submit" class="my-4" :loading="loading" @click="submit">
         Sign Up
       </Button>
