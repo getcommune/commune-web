@@ -4,6 +4,7 @@ const state = ref({
   resizeKey: 0,
   overlays: {} as Record<string, number>,
   waitingListModal: false,
+  mounted: false,
 });
 
 export default state;
