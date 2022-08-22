@@ -26,6 +26,7 @@ const sessionToken = new SessionToken();
 const db = getFirestore(firebaseApp);
 const loading = ref(false);
 const $toast = useToast();
+const radioGroup = ref(null);
 
 const addToWaitlist = async () => {
   try {
@@ -219,9 +220,14 @@ const autocomplete: any = async () => {
         placeholder="If you're referring a homeowner to us"
         type="tel"
       />
-
+      <h1 class="text-primary-base dark:text-[#6489d0] font-bold text-l lg:text-1xl lg:mt-0">Would you like to receive promotional emails and offers from us?</h1>
+      <section>
+        <input class="font-light text-l lg:pt-4" type="radio" v-model="radioGroup" id="yes" value="true">  Yes please, I'd like to hear about offers and services
+        <br />
+        <input class="font-light text-l lg:mt-2" type="radio" v-model="radioGroup" id="no" value="false">  No, I don't want to hear about offers and services
+      </section>
       <Button type="submit" class="my-4" :loading="loading" @click="submit">
-        Submit
+        Sign Up
       </Button>
     </UiForm>
   </section>
