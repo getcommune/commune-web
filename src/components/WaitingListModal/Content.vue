@@ -226,8 +226,10 @@ const autocomplete: any = async () => {
       />
 
       <div>
-        <legend class="font-semibold mb-2 text-l lg:text-1xl lg:mt-0">
-          Would you like to receive promotional emails and offers from us?
+        <legend
+          class="font-semibold mb-3 mt-2 text-l lg:text-1xl lg:mt-0 opacity-70"
+        >
+          Signup for promotions and offers?
         </legend>
 
         <RadioGroup
@@ -244,7 +246,7 @@ const autocomplete: any = async () => {
             class="flex items-center space-x-4"
           >
             <Radio v-bind="attrs">
-              <template #append="{ id, active }">
+              <template #append="{ id }">
                 <label :for="id">
                   {{
                     index === 0
@@ -254,7 +256,7 @@ const autocomplete: any = async () => {
                 </label>
               </template>
 
-              <template #default="{ active }">
+              <template #default="{ active, id, item }">
                 <div
                   class="fill-before relative before:bg-primary-base dark:before:bg-primary-base-d rounded-full h-3 w-3 transition-shadow before:transition-transform ring-offset-1 dark:ring-offset-surface-d"
                   :class="{
@@ -263,7 +265,15 @@ const autocomplete: any = async () => {
                     'ring-2 ring-primary-base/80 dark:ring-primary-base-d/80':
                       active,
                   }"
-                ></div>
+                >
+                  <input
+                    :id="id"
+                    type="radio"
+                    :checked="active"
+                    class="sr-only"
+                    :value="item === 'true' ? 'Accept' : 'Decline'"
+                  />
+                </div>
               </template>
             </Radio>
           </li>
