@@ -14,6 +14,7 @@ import MoonIcon from "../Icon/MoonIcon.vue";
 
 import firebaseApp from "../../../firebaseInit";
 import Img from "../Img/index.vue";
+import state from "../../framework/state";
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
 const $toast = useToast();
@@ -146,6 +147,7 @@ const storeLinks = [
           :alt="`${i ? 'Playstore' : 'Appstore'} icon`"
           :src="`${i ? link.src : link.src}.png`"
           load-class="h-full pointer-events-none"
+          :loading="state.mounted ? 'eager' : 'lazy'"
         />
       </Button>
     </div>
