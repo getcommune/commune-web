@@ -229,7 +229,7 @@ const autocomplete: any = async () => {
         <legend
           class="font-semibold mb-3 mt-2 text-l lg:text-1xl lg:mt-0 opacity-70"
         >
-          Signup for promotions and offers?
+          Would you like to receive email alerts from us?
         </legend>
 
         <RadioGroup
@@ -250,8 +250,8 @@ const autocomplete: any = async () => {
                 <label :for="id">
                   {{
                     index === 0
-                      ? "Yes please, I'd like to hear about offers and services"
-                      : "No, I don't want to hear about offers and services"
+                      ? "Yes, please"
+                      : "No, I don't want to receive emails"
                   }}
                 </label>
               </template>
