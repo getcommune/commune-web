@@ -20,6 +20,7 @@ const PK = import.meta.env.VITE_MAPBOX_PK;
 const PUBKEY = import.meta.env.VITE_EMAILJS1_PUBKEY;
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_WAITLIST_TEMPLATE_ID;
+const ZEPTO_TEMPLATE_KEY = import.meta.env.VITE_MAIL_TEMPLATE_KEY;
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
 
@@ -58,7 +59,7 @@ const addToWaitlist = async () => {
 
     const data = {
       bounce_address: "welcome@bounce.getcommune.co",
-      mail_template_key: import.meta.env.VITE_MAIL_TEMPLATE_KEY,
+      mail_template_key: ZEPTO_TEMPLATE_KEY,
       from_address: "archibong@getcommune.co",
       from_name: "Charles Effiom",
       to_address: email,
