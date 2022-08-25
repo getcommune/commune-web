@@ -4,6 +4,7 @@ import UiInput from "../UiInput/index.vue";
 import Button from "../Button/index.vue";
 import UiSelect from "../UiSelect/index.vue";
 
+import axios from 'axios';
 import { reactive, onMounted, ref } from "vue";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { MapboxAutofill, SessionToken } from "@mapbox/search-js-core";
@@ -38,6 +39,7 @@ const addToWaitlist = async () => {
       formModel;
 
     const radioGroupValue = radioGroup.value[0] === "true";
+    const url = "https://zepto-commune.herokuapp.com/api/send_welcome_mail";
 
     await addDoc(collection(db, "waitlist"), {
       name,
@@ -53,6 +55,20 @@ const addToWaitlist = async () => {
       position: "top",
       duration: 5000,
     });
+
+    const data = {
+      bounce_address: "welcome@bounce.getcommune.co",
+      mail_template_key: import.meta.env.VITE_MAIL_TEMPLATE_KEY,
+      from_address: "archibong@getcommune.co",
+      from_name: "Charles Effiom",
+      to_address: email,
+      to_name: name
+    }
+
+    axios.post(url, data)
+    .then(() => {}) // TODO
+    .catch(() => {});
+
     try {
       emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY).then(
         function (response) {},
