@@ -4,17 +4,17 @@ const sections = [
   {
     title: "Search For An Apartment",
     content:
-      "Run a quick search for apartments based on you unique preferences.",
+      "Run a quick search for apartments based on your unique preferences.",
   },
   {
     title: "Inspect Homes Virtually",
     content:
-      "Using our VR/AR solutions, you can inspect your home immersively from multiple angles without making expensive physical visits. ",
+      "Using our real-time solutions, virtually inspect houses without making expensive physical visits. ",
   },
   {
     title: "Pay",
     content:
-      "Once you are satisfied with your inspection, proceed to make your in-app payment for the apartment.",
+      "Once you are satisfied, make your payment via the secure in-app payment channel.",
   },
 ];
 </script>

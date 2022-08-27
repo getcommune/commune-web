@@ -14,10 +14,19 @@ import Img from "../Img/index.vue";
         class="order-2 lg:order-1 lg:w-[50%] grid gap-y-6 lg:gap-y-12 content-start px-4 lg:px-0"
       >
         <div>
+          <h3 class="text-primary-base dark:text-[#6489d0] text-lg lg:text-2xl font-medium">List Your Property</h3>
+
+          <p class="mt-2 lg:mt-4 lg:text-lg">
+            No hassle and zero cost when you list your property with us. We bridge the gap 
+            between homeowners and potential tenants.
+          </p>
+        </div>
+
+        <div>
           <h3 class="text-primary-base dark:text-[#6489d0] text-lg lg:text-2xl font-medium">Find An Apartment</h3>
 
           <p class="mt-2 lg:mt-4 lg:text-lg">
-            Save time and money spent in checking houses you will not live in -
+            Save time and money spent in househunting -
             get access to information on available homes - connect with a pool of
             individuals like you seeking an easier rental experience.
           </p>
@@ -28,8 +37,7 @@ import Img from "../Img/index.vue";
 
           <p class="mt-2 lg:mt-4 lg:text-lg">
             Our preference-based matching system will suggest users with
-            similar interests and lifestyle choices as you, if you are looking
-            for a co-living partner.
+            similar interests and lifestyle choices as you.
           </p>
         </div>
       </div>
