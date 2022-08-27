@@ -19,12 +19,12 @@ const breakpoint = useBreakpoint();
     >
       <div class="lg:max-w-[min(33rem,55%)] order-2 lg:order-1 px-4 lg:px-0">
         <h2 class="text-primary-base dark:text-[#6489d0] font-bold text-2xl lg:text-4xl">
-          Find a new home with the best search experience
+          Find a home with the best search experience
         </h2>
 
         <p class="text-base lg:text-lg mt-4 lg:mt-6 opacity-90">
-          Save time and money when you rent a home on Commune. List your property
-          at no cost. Earn a fee when you refer a homeowner to us.
+          Find and rent your dream house - find a flatmate - list your property
+          for rent at no cost. All on one app. Save time and money with Commune.
         </p>
 
         <Button class="mt-8" @click="state.waitingListModal = true">
