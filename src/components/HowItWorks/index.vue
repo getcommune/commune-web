@@ -9,7 +9,7 @@ const sections = [
   {
     title: "Inspect Homes Virtually",
     content:
-      "Using our real-time solutions, virtually inspect houses without making expensive physical visits. ",
+      "Using our realtime solutions, virtually inspect houses without making expensive physical visits. ",
   },
   {
     title: "Pay",
