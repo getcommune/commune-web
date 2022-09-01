@@ -16,6 +16,10 @@ import firebaseApp from "../../../firebaseInit";
 import Img from "../Img/index.vue";
 import state from "../../framework/state";
 
+import TwitterIcon from "../Icon/TwitterIcon.vue";
+import LinkedinIcon from "../Icon/LinkedinIcon.vue";
+
+
 const emits = defineEmits(["form-submitted", "submit-error"]);
 const $toast = useToast();
 const db = getFirestore(firebaseApp);
@@ -77,6 +81,17 @@ const storeLinks = [
     src: "https://res.cloudinary.com/themachine/image/upload/v1661027214/commune-web/public/playstore2_vfuxu1",
   },
 ];
+
+const socialLinks = [
+  {
+    title: "Twitter",
+    src: "twitter_icon"
+  },
+  {
+    title: "LinkedIn",
+    src: "Linkedin-logo-on-transparent-Background-PNG-"
+  }
+]
 </script>
 
 <template>
@@ -153,7 +168,7 @@ const storeLinks = [
     </div>
   </section>
 
-  <footer class="flex items-center justify-between px-4 lg:px-16">
+  <section class="flex items-center justify-between px-4 lg:px-16">
     <a href="">
       <h2
         class="text-primary-base dark:text-[#6489d0] font-black text-lg py-8 lg:text-xl"
@@ -173,5 +188,33 @@ const storeLinks = [
 
       <MoonIcon v-else class="text-background-d/90 dark:text-background/80" />
     </Button>
+  </section>
+
+  <footer class="flex items-left justify-center px-8 lg:px-8">
+    <section class="grid justify-center mb-8">
+      <p class="text-heading mb-6 text-lg text-center font-semibold">
+        Contact us
+      </p>
+
+      <div class="grid md:grid-cols-2 md:max-h-lg gap-5 md:gap-3">
+        <a
+          color="#fff"
+          v-for="(link, i) in socialLinks"
+          :key="link.title"
+          class="!p-0 max-w-[75vw] max-h-[4rem]"
+          href=""
+        > 
+          <LinkedinIcon 
+            v-if="i"
+            class="text-background-d/90 dark:text-background/80"
+          />
+          <TwitterIcon 
+            v-else
+            class="text-background-d/90 dark:text-background/80"
+          />
+        </a>
+      </div>
+    </section>
+
   </footer>
 </template>
