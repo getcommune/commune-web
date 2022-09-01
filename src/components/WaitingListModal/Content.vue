@@ -5,7 +5,7 @@ import Button from "../Button/index.vue";
 import UiSelect from "../UiSelect/index.vue";
 
 import axios from 'axios';
-import { reactive, onMounted, ref } from "vue";
+import { reactive, ref } from "vue";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { MapboxAutofill, SessionToken } from "@mapbox/search-js-core";
 import emailjs from "@emailjs/browser";
@@ -21,6 +21,7 @@ const PUBKEY = import.meta.env.VITE_EMAILJS1_PUBKEY;
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_WAITLIST_TEMPLATE_ID;
 const ZEPTO_TEMPLATE_KEY = import.meta.env.VITE_MAIL_TEMPLATE_KEY;
+const ARCGIS_KEY = import.meta.env.VITE_ARCGIS_KEY;
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
 
@@ -31,6 +32,39 @@ const db = getFirestore(firebaseApp);
 const loading = ref(false);
 const $toast = useToast();
 const radioGroup = ref<["true" | "false"]>(["true"]);
+let suggestions: { [s: string]: any; } = [];
+
+const initialState = {
+  name: "",
+  email: "",
+  phone: "",
+  location: "",
+  rooms: "",
+  availability: "",
+  managerNumber: "",
+};
+
+let formModel = reactive({ ...initialState });
+
+const autosuggestHTTP = async () => {
+  const { location } = formModel;
+  let autosuggestServiceUrl = `https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?f=pjson&text=${location}&token=${ARCGIS_KEY}`;
+  await axios.get(autosuggestServiceUrl)
+    .then((resp) => {
+      suggestions = resp.data['suggestions'];
+    })
+    .catch((e) => console.log("ERROR: ", e));
+}
+
+const makeDelay = (ms: number | undefined) => {
+  var timer = 0;
+  return ((callback: any) => {
+    clearTimeout(callback);
+    timer = window.setTimeout(callback, ms);
+  })
+}
+
+var delay = makeDelay(500);
 
 const addToWaitlist = async () => {
   try {
@@ -101,28 +135,14 @@ const availabilitySelect = [
   { value: "available", label: "Available" },
 ];
 
-const initialState = {
-  name: "",
-  email: "",
-  phone: "",
-  location: "",
-  rooms: "",
-  availability: "",
-  managerNumber: "",
-};
-
-let formModel = reactive({ ...initialState });
-
 const autocomplete: any = async () => {
   // const result = await search.suggest('Washington D.C', {sessionToken});
   const fillResult = await autofill.suggest("Washington D.C", { sessionToken });
 
   if (fillResult.suggestions.length === 0) {
-    console.log("LENGTH: 0");
-    console.log(formModel.location);
   }
 
-  const suggestion = fillResult.suggestions[1];
+  const suggestion = fillResult.suggestions[0];
   const { features } = await autofill.retrieve(suggestion, { sessionToken });
   console.log(features);
 
@@ -150,16 +170,16 @@ const autocomplete: any = async () => {
       >
         Count Me In!
       </h2>
-      <h1 class="font-light text-lg lg:text-2xl lg:mt-1">
+      <h3 class="font-light text-lg lg:text-xl lg:mt-1">
         Get early access, news & updates.
-      </h1>
+      </h3>
     </div>
 
     <UiForm
       v-slot="{ submit }"
       name="joinList"
       action="."
-      class="max-w-sm lg:max-w-lg mx-auto grid gap-y-5 lg:gap-y-8 mt-4 lg:mt-12"
+      class="max-w-sm lg:max-w-lg mx-auto grid gap-y-5 lg:gap-y-8 mt-4 lg:mt-12 min-w-[100%]"
       @submit-form="addToWaitlist"
     >
       <UiInput
@@ -189,8 +209,8 @@ const autocomplete: any = async () => {
 
       <UiInput
         id="autocomplete"
+        v-on:keyup="delay(autosuggestHTTP())"
         v-model="formModel.location"
-        @change="autocomplete()"
         label="Apartment Location"
         placeholder="Lekki Phase 1"
         required
