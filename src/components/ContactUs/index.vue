@@ -2,8 +2,8 @@
 import { getFirestore, collection, addDoc } from "@firebase/firestore";
 import { reactive, ref } from "vue";
 import emailjs from "@emailjs/browser";
-import { useToast } from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 
 import UiForm from "../UiForm/index.vue";
 import UiInput from "../UiInput/index.vue";
@@ -18,7 +18,6 @@ import state from "../../framework/state";
 
 import TwitterIcon from "../Icon/TwitterIcon.vue";
 import LinkedinIcon from "../Icon/LinkedinIcon.vue";
-
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
 const $toast = useToast();
@@ -40,9 +39,9 @@ const addComment = async () => {
     });
     emits("form-submitted");
 
-    $toast.success('Your message has been sent!', {
-      position: 'top',
-      duration: 5000
+    $toast.success("Your message has been sent!", {
+      position: "top",
+      duration: 5000,
     });
     try {
       emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY).then(
@@ -85,13 +84,17 @@ const storeLinks = [
 const socialLinks = [
   {
     title: "Twitter",
-    src: "twitter_icon"
+    src: "twitter_icon",
+    icon: TwitterIcon,
+    href: "#",
   },
   {
     title: "LinkedIn",
-    src: "Linkedin-logo-on-transparent-Background-PNG-"
-  }
-]
+    src: "Linkedin-logo-on-transparent-Background-PNG-",
+    icon: LinkedinIcon,
+    href: "#",
+  },
+];
 </script>
 
 <template>
@@ -168,6 +171,29 @@ const socialLinks = [
     </div>
   </section>
 
+  <hr
+    class="border-t border-divider dark:border-divider-d mt-2 md:mt-2 mb-4 md:mb-8"
+  />
+
+  <section class="grid justify-center mb-8">
+    <p class="text-heading mb-6 text-lg text-center font-semibold">
+      Contact us
+    </p>
+
+    <div class="grid grid-cols-2 gap-3 md:gap-5">
+      <Button
+        v-for="item in socialLinks"
+        :key="item.title"
+        :href="item.href"
+        :title="item.title"
+        icon
+        class="!bg-transparent !w-12 !h-12 !px-0 !text-xl"
+      >
+        <Component :is="item.icon" />
+      </Button>
+    </div>
+  </section>
+
   <section class="flex items-center justify-between px-4 lg:px-16">
     <a href="">
       <h2
@@ -189,32 +215,4 @@ const socialLinks = [
       <MoonIcon v-else class="text-background-d/90 dark:text-background/80" />
     </Button>
   </section>
-
-  <footer class="flex items-left justify-center px-8 lg:px-8">
-    <section class="grid justify-center mb-8">
-      <p class="text-heading mb-6 text-lg text-center font-semibold">
-        Contact us
-      </p>
-
-      <div class="grid md:grid-cols-2 md:max-h-lg gap-5 md:gap-3">
-        <a
-          color="#fff"
-          v-for="(link, i) in socialLinks"
-          :key="link.title"
-          class="!p-0 max-w-[75vw] max-h-[4rem]"
-          href=""
-        > 
-          <LinkedinIcon 
-            v-if="i"
-            class="text-background-d/90 dark:text-background/80"
-          />
-          <TwitterIcon 
-            v-else
-            class="text-background-d/90 dark:text-background/80"
-          />
-        </a>
-      </div>
-    </section>
-
-  </footer>
 </template>
