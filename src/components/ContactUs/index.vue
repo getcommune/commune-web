@@ -84,13 +84,11 @@ const storeLinks = [
 const socialLinks = [
   {
     title: "Twitter",
-    src: "twitter_icon",
     icon: TwitterIcon,
     href: "#",
   },
   {
     title: "LinkedIn",
-    src: "Linkedin-logo-on-transparent-Background-PNG-",
     icon: LinkedinIcon,
     href: "#",
   },
