@@ -170,9 +170,9 @@ const socialLinks = [
   </section>
 
   <footer
-    class="mt-6 md:mt-8 fill-before relative before:bg-current isolate before:-z-1 before:opacity-[0.025]"
+    class="mt-8 md:mt-12 fill-before relative before:bg-current isolate before:-z-1 before:opacity-[0.025]"
   >
-    <hr class="border-t border-divider dark:border-divider-d mb-6 md:mb-8" />
+    <hr class="border-t border-divider dark:border-divider-d mb-8 md:mb-12" />
 
     <section class="grid justify-center mb-8">
       <p class="text-heading mb-6 text-lg text-center font-semibold">
