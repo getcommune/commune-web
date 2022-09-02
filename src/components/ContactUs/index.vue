@@ -109,7 +109,7 @@ const socialLinks = [
 
     <UiForm
       v-slot="{ submit }"
-      id="contact-us"
+      id="contact-us-form"
       @submit-form="addComment"
       name="contactUs"
       action="."
