@@ -163,7 +163,7 @@ const socialLinks = [
       >
         <Img
           :alt="`${i ? 'Playstore' : 'Appstore'} icon`"
-          :src="`${i ? link.src : link.src}.png`"
+          :src="`${link.src}.png`"
           load-class="h-full pointer-events-none"
           :loading="state.mounted ? 'eager' : 'lazy'"
         />
