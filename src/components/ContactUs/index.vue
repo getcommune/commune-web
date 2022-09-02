@@ -171,48 +171,50 @@ const socialLinks = [
     </div>
   </section>
 
-  <hr
-    class="border-t border-divider dark:border-divider-d mt-2 md:mt-2 mb-4 md:mb-8"
-  />
+  <footer
+    class="mt-6 md:mt-8 fill-before relative before:bg-current isolate before:-z-1 before:opacity-[0.025]"
+  >
+    <hr class="border-t border-divider dark:border-divider-d mb-6 md:mb-8" />
 
-  <section class="grid justify-center mb-8">
-    <p class="text-heading mb-6 text-lg text-center font-semibold">
-      Contact us
-    </p>
+    <section class="grid justify-center mb-8">
+      <p class="text-heading mb-6 text-lg text-center font-semibold">
+        Contact us
+      </p>
 
-    <div class="grid grid-cols-2 gap-3 md:gap-5">
+      <div class="grid grid-cols-2 gap-3 md:gap-5">
+        <Button
+          v-for="item in socialLinks"
+          :key="item.title"
+          :href="item.href"
+          :title="item.title"
+          icon
+          class="!bg-transparent !w-12 !h-12 !px-0 !text-xl"
+        >
+          <Component :is="item.icon" />
+        </Button>
+      </div>
+    </section>
+
+    <section class="flex items-center justify-between px-4 lg:px-16">
+      <a href="">
+        <h2
+          class="text-primary-base dark:text-[#6489d0] font-black text-lg py-8 lg:text-xl"
+        >
+          Commune
+        </h2>
+      </a>
+
       <Button
-        v-for="item in socialLinks"
-        :key="item.title"
-        :href="item.href"
-        :title="item.title"
-        icon
-        class="!bg-transparent !w-12 !h-12 !px-0 !text-xl"
+        class="!bg-transparent !w-9 !h-9 !px-0 !text-xl"
+        @click="theme.light = !theme.light"
       >
-        <Component :is="item.icon" />
+        <SunIcon
+          v-if="theme.light"
+          class="text-background-d/90 dark:text-background/80"
+        />
+
+        <MoonIcon v-else class="text-background-d/90 dark:text-background/80" />
       </Button>
-    </div>
-  </section>
-
-  <section class="flex items-center justify-between px-4 lg:px-16">
-    <a href="">
-      <h2
-        class="text-primary-base dark:text-[#6489d0] font-black text-lg py-8 lg:text-xl"
-      >
-        Commune
-      </h2>
-    </a>
-
-    <Button
-      class="!bg-transparent !w-9 !h-9 !px-0 !text-xl"
-      @click="theme.light = !theme.light"
-    >
-      <SunIcon
-        v-if="theme.light"
-        class="text-background-d/90 dark:text-background/80"
-      />
-
-      <MoonIcon v-else class="text-background-d/90 dark:text-background/80" />
-    </Button>
-  </section>
+    </section>
+  </footer>
 </template>
