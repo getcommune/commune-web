@@ -186,7 +186,7 @@ const socialLinks = [
           :href="item.href"
           :title="item.title"
           icon
-          class="!bg-transparent !w-12 !h-12 !px-0 !text-xl"
+          class="!bg-transparent !w-12 !h-12 !px-0 !text-xl text-inherit"
         >
           <Component :is="item.icon" />
         </Button>
@@ -203,7 +203,7 @@ const socialLinks = [
       </a>
 
       <Button
-        class="!bg-transparent !w-9 !h-9 !px-0 !text-xl"
+        class="!bg-transparent !w-9 !h-9 !px-0 !text-xl text-inherit"
         @click="theme.light = !theme.light"
       >
         <SunIcon
