@@ -56,8 +56,6 @@ watch(
     if (formModel.location !== selectedLocation.value.text) {
       await autosuggestHTTP();
 
-      console.log(suggestions.value);
-
       autocompleteDropdown.value = !!suggestions.value.length;
     }
   }
