@@ -217,10 +217,6 @@ const availabilitySelect = [
         z-index="10000"
       >
         <template #trigger="{ toggle }">
-          <!-- <button @click.prevent="toggle" @mouseenter="setPosition">
-            Hello popper trigger
-          </button> -->
-
           <UiInput
             id="autocomplete"
             v-model="formModel.location"
