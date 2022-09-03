@@ -74,12 +74,12 @@ const socialLinks = [
   {
     title: "Twitter",
     icon: TwitterIcon,
-    href: "#",
+    href: "https://twitter.com/commune_co",
   },
   {
     title: "LinkedIn",
     icon: LinkedinIcon,
-    href: "#",
+    href: "https://linkedin.com/company/getcommune/",
   },
 ];
 </script>
@@ -174,6 +174,7 @@ const socialLinks = [
           :key="item.title"
           :href="item.href"
           :title="item.title"
+          target="_blank"
           icon
           class="!bg-transparent !w-12 !h-12 !px-0 !text-xl text-inherit"
         >

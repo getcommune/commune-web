@@ -7,7 +7,6 @@ import UiSelect from "../UiSelect/index.vue";
 import axios from "axios";
 import { reactive, ref, watch } from "vue";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { MapboxAutofill, SessionToken } from "@mapbox/search-js-core";
 import emailjs from "@emailjs/browser";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
@@ -17,7 +16,6 @@ import RadioGroup from "../RadioGroup/index.vue";
 import Radio from "../Radio/index.vue";
 import Position from "../Position/index.vue";
 
-const PK = import.meta.env.VITE_MAPBOX_PK;
 const PUBKEY = import.meta.env.VITE_EMAILJS1_PUBKEY;
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_WAITLIST_TEMPLATE_ID;
@@ -25,9 +23,6 @@ const ZEPTO_TEMPLATE_KEY = import.meta.env.VITE_MAIL_TEMPLATE_KEY;
 const ARCGIS_KEY = import.meta.env.VITE_ARCGIS_KEY;
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
-
-const autofill = new MapboxAutofill({ accessToken: PK });
-const sessionToken = new SessionToken();
 
 const db = getFirestore(firebaseApp);
 const loading = ref(false);
@@ -71,16 +66,6 @@ const autosuggestHTTP = async () => {
     })
     .catch((e) => console.log("ERROR: ", e));
 };
-
-const makeDelay = (ms: number | undefined) => {
-  var timer = 0;
-  return (callback: any) => {
-    clearTimeout(callback);
-    timer = window.setTimeout(callback, ms);
-  };
-};
-
-let delay = makeDelay(500);
 
 const addToWaitlist = async () => {
   try {
