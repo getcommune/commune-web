@@ -236,6 +236,7 @@ const availabilitySelect = [
           >
             <Button
               v-for="location in suggestions"
+              tag="li"
               :key="location.magicKey"
               class="!bg-transparent !w-full !rounded-sm !text-surface-d dark:!text-white !justify-start !min-h-[1rem] !h-8 !px-2 !text-base !text-left"
               @click="
