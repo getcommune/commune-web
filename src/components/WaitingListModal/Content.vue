@@ -235,7 +235,7 @@ const availabilitySelect = [
           <ul
             v-if="active"
             :ref="ref"
-            class="pointer-events-auto min-w-[500px] max-w-lg p-2 grid gap-y-1 max-h-40 overflow-y-auto bg-white dark:bg-surface-d shadow-xl rounded border border-divider dark:border-divider-d"
+            class="pointer-events-auto min-w-[calc(100%-1.5rem)] max-w-[calc(100%-1.5rem)] md:min-w-[500px] md:max-w-lg p-2 grid gap-y-1 max-h-40 overflow-y-auto bg-white dark:bg-surface-d shadow-xl rounded border border-divider dark:border-divider-d"
             @click.stop
           >
             <Button
