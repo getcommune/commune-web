@@ -145,7 +145,7 @@ const socialLinks = [
         color="#fff"
         v-for="(link, i) in storeLinks"
         :key="link.title"
-        class="!p-0 max-w-[75vw] max-h-[4rem]"
+        class="!p-0 max-w-[75vw] max-h-[4rem] !bg-transparent"
         href=""
       >
         <Img
