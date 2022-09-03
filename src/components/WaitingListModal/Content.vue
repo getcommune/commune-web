@@ -140,6 +140,7 @@ const autocomplete: any = async () => {
   const fillResult = await autofill.suggest("Washington D.C", { sessionToken });
 
   if (fillResult.suggestions.length === 0) {
+    console.log("ZERO")
   }
 
   const suggestion = fillResult.suggestions[0];
@@ -209,7 +210,7 @@ const autocomplete: any = async () => {
 
       <UiInput
         id="autocomplete"
-        v-on:keyup="delay(autosuggestHTTP())"
+        @change="autocomplete"
         v-model="formModel.location"
         label="Apartment Location"
         placeholder="Lekki Phase 1"
