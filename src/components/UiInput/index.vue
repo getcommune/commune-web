@@ -133,7 +133,7 @@ export default {
 
     return function () {
       const id = props.value.id || `uit-${this._.uid}`;
-      
+
       let getValidation = validation();
 
       const invalid = getValidation.valid === false && data.inputDirtied;
@@ -242,13 +242,17 @@ export default {
 };
 </script>
 
-<style>
+<style lang="postcss">
 .main[data-uit] {
   --ui-rounded-lg: 0.25rem;
   height: 56px;
   border-radius: var(--ui-rounded-lg);
   position: relative;
   isolation: isolate;
+}
+
+.main[data-uit]:focus-within {
+  @apply ring-2 ring-primary-base dark:ring-primary-base-d;
 }
 
 .main[data-uit].textarea {
