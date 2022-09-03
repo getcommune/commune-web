@@ -1,25 +1,21 @@
+
 <script lang="ts" setup>
 import { getFirestore, collection, addDoc } from "@firebase/firestore";
 import { reactive, ref } from "vue";
 import emailjs from "@emailjs/browser";
-import { useToast } from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
-
+import { useToast } from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-sugar.css";
 import UiForm from "../UiForm/index.vue";
 import UiInput from "../UiInput/index.vue";
 import Button from "../Button/index.vue";
 import theme from "../../utils/theme";
 import SunIcon from "../Icon/SunIcon.vue";
 import MoonIcon from "../Icon/MoonIcon.vue";
-
 import firebaseApp from "../../../firebaseInit";
 import Img from "../Img/index.vue";
 import state from "../../framework/state";
-
 import TwitterIcon from "../Icon/TwitterIcon.vue";
 import LinkedinIcon from "../Icon/LinkedinIcon.vue";
-
-
 const emits = defineEmits(["form-submitted", "submit-error"]);
 const $toast = useToast();
 const db = getFirestore(firebaseApp);
@@ -27,22 +23,18 @@ const loading = ref(false);
 const PUBKEY = import.meta.env.VITE_EMAILJS1_PUBKEY;
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_CONTACTUS_TEMPLATE_ID;
-
 const addComment = async () => {
   try {
     loading.value = true;
-
     const { email, message } = formModel;
-
     await addDoc(collection(db, "questionbox"), {
       email: email,
       content: message,
     });
     emits("form-submitted");
-
-    $toast.success('Your message has been sent!', {
-      position: 'top',
-      duration: 5000
+    $toast.success("Your message has been sent!", {
+      position: "top",
+      duration: 5000,
     });
     try {
       emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY).then(
@@ -63,14 +55,11 @@ const addComment = async () => {
     Object.assign(formModel, initialState);
   }
 };
-
 const initialState = {
   email: "",
   message: "",
 };
-
 const formModel = reactive({ ...initialState });
-
 const storeLinks = [
   {
     title: "App store",
@@ -81,17 +70,18 @@ const storeLinks = [
     src: "https://res.cloudinary.com/themachine/image/upload/v1661027214/commune-web/public/playstore2_vfuxu1",
   },
 ];
-
 const socialLinks = [
   {
     title: "Twitter",
-    src: "twitter_icon"
+    icon: TwitterIcon,
+    href: "https://twitter.com/commune_co",
   },
   {
     title: "LinkedIn",
-    src: "Linkedin-logo-on-transparent-Background-PNG-"
-  }
-]
+    icon: LinkedinIcon,
+    href: "https://linkedin.com/company/getcommune/",
+  },
+];
 </script>
 
 <template>
@@ -108,7 +98,7 @@ const socialLinks = [
 
     <UiForm
       v-slot="{ submit }"
-      id="contact-us"
+      id="contact-us-form"
       @submit-form="addComment"
       name="contactUs"
       action="."
@@ -155,12 +145,12 @@ const socialLinks = [
         color="#fff"
         v-for="(link, i) in storeLinks"
         :key="link.title"
-        class="!p-0 max-w-[75vw] max-h-[4rem]"
+        class="!p-0 max-w-[75vw] max-h-[4rem] !bg-transparent"
         href=""
       >
         <Img
           :alt="`${i ? 'Playstore' : 'Appstore'} icon`"
-          :src="`${i ? link.src : link.src}.png`"
+          :src="`${link.src}.png`"
           load-class="h-full pointer-events-none"
           :loading="state.mounted ? 'eager' : 'lazy'"
         />
@@ -168,53 +158,51 @@ const socialLinks = [
     </div>
   </section>
 
-  <section class="flex items-center justify-between px-4 lg:px-16">
-    <a href="">
-      <h2
-        class="text-primary-base dark:text-[#6489d0] font-black text-lg py-8 lg:text-xl"
-      >
-        Commune
-      </h2>
-    </a>
+  <footer
+    class="mt-8 md:mt-12 fill-before relative before:bg-current isolate before:-z-1 before:opacity-[0.025]"
+  >
+    <hr class="border-t border-divider dark:border-divider-d mb-8 md:mb-12" />
 
-    <Button
-      class="!bg-transparent !w-9 !h-9 !px-0 !text-xl"
-      @click="theme.light = !theme.light"
-    >
-      <SunIcon
-        v-if="theme.light"
-        class="text-background-d/90 dark:text-background/80"
-      />
-
-      <MoonIcon v-else class="text-background-d/90 dark:text-background/80" />
-    </Button>
-  </section>
-
-  <footer class="flex items-left justify-center px-8 lg:px-8">
     <section class="grid justify-center mb-8">
       <p class="text-heading mb-6 text-lg text-center font-semibold">
         Contact us
       </p>
 
-      <div class="grid md:grid-cols-2 md:max-h-lg gap-5 md:gap-3">
-        <a
-          color="#fff"
-          v-for="(link, i) in socialLinks"
-          :key="link.title"
-          class="!p-0 max-w-[75vw] max-h-[4rem]"
-          href=""
-        > 
-          <LinkedinIcon 
-            v-if="i"
-            class="text-background-d/90 dark:text-background/80"
-          />
-          <TwitterIcon 
-            v-else
-            class="text-background-d/90 dark:text-background/80"
-          />
-        </a>
+      <div class="grid grid-cols-2 gap-3 md:gap-5">
+        <Button
+          v-for="item in socialLinks"
+          :key="item.title"
+          :href="item.href"
+          :title="item.title"
+          target="_blank"
+          icon
+          class="!bg-transparent !w-12 !h-12 !px-0 !text-xl text-inherit"
+        >
+          <Component :is="item.icon" />
+        </Button>
       </div>
     </section>
 
+    <section class="flex items-center justify-between px-4 lg:px-16">
+      <a href="">
+        <h2
+          class="text-primary-base dark:text-[#6489d0] font-black text-lg py-8 lg:text-xl"
+        >
+          Commune
+        </h2>
+      </a>
+
+      <Button
+        class="!bg-transparent !w-9 !h-9 !px-0 !text-xl text-inherit"
+        @click="theme.light = !theme.light"
+      >
+        <SunIcon
+          v-if="theme.light"
+          class="text-background-d/90 dark:text-background/80"
+        />
+
+        <MoonIcon v-else class="text-background-d/90 dark:text-background/80" />
+      </Button>
+    </section>
   </footer>
 </template>

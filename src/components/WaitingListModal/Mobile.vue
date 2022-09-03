@@ -42,7 +42,7 @@ const breakpoint = useBreakpoint();
       >
         <div
           v-if="active"
-          class="h-full max-h-[calc(100vh-3rem)] w-full flex-centered outline-none"
+          class="h-full max-h-[85vh] w-full flex-centered outline-none"
           @click.stop
         >
           <div

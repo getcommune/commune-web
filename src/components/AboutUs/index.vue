@@ -7,16 +7,24 @@ const breakpoint = useBreakpoint();
 
 <template>
   <section class="relative isolate mt-16 xl:mt-28 lg:mt-40">
-    <h2 id="about-us" class="text-primary-base dark:text-[#6489d0] text-center font-bold text-xl lg:text-3xl">
+    <h2
+      id="about-us"
+      class="text-primary-base dark:text-[#6489d0] text-center font-bold text-xl lg:text-3xl"
+    >
       About Us
     </h2>
     <div
       class="flex-col lg:flex-row flex lg:text-left lg:space-x-4 pt-4 lg:pt-8"
+      :class="{ 'max-w-lg mx-auto': breakpoint.isMobile }"
     >
       <div class="lg:w-[50%]">
         <div class="flex justify-start">
           <span class="w-[min(32rem,50vw)] inline-block">
-            <Img load-effect="fade" src="https://res.cloudinary.com/themachine/image/upload/v1660630058/commune-web/public/AboutUs_uyaj1k.png" alt="Image" />
+            <Img
+              load-effect="fade"
+              src="https://res.cloudinary.com/themachine/image/upload/v1660630058/commune-web/public/AboutUs_uyaj1k.png"
+              alt="Image"
+            />
           </span>
         </div>
       </div>
@@ -33,18 +41,16 @@ const breakpoint = useBreakpoint();
           </p>-->
 
           <p>
-            We connect people
-            looking to rent with homeowners in less time and at little cost.
+            We connect people looking to rent with homeowners in less time and
+            at little cost.
           </p>
 
           <p>
-            With Commune, you can virtually inspect your apartment from
-            anywhere with an improved visual experience.
+            With Commune, you can virtually inspect your apartment from anywhere
+            with an improved visual experience.
           </p>
 
-          <p>
-            Spend less time closing deals when you list your homes with us.
-          </p>
+          <p>Spend less time closing deals when you list your homes with us.</p>
         </div>
       </div>
     </div>

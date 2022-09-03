@@ -4,10 +4,9 @@ import UiInput from "../UiInput/index.vue";
 import Button from "../Button/index.vue";
 import UiSelect from "../UiSelect/index.vue";
 
-import axios from 'axios';
-import { reactive, ref } from "vue";
+import axios from "axios";
+import { reactive, ref, watch } from "vue";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { MapboxAutofill, SessionToken } from "@mapbox/search-js-core";
 import emailjs from "@emailjs/browser";
 import { useToast } from "vue-toast-notification";
 import "vue-toast-notification/dist/theme-sugar.css";
@@ -15,8 +14,8 @@ import "vue-toast-notification/dist/theme-sugar.css";
 import firebaseApp from "../../../firebaseInit";
 import RadioGroup from "../RadioGroup/index.vue";
 import Radio from "../Radio/index.vue";
+import Position from "../Position/index.vue";
 
-const PK = import.meta.env.VITE_MAPBOX_PK;
 const PUBKEY = import.meta.env.VITE_EMAILJS1_PUBKEY;
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_WAITLIST_TEMPLATE_ID;
@@ -25,14 +24,14 @@ const ARCGIS_KEY = import.meta.env.VITE_ARCGIS_KEY;
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
 
-const autofill = new MapboxAutofill({ accessToken: PK });
-const sessionToken = new SessionToken();
-
 const db = getFirestore(firebaseApp);
 const loading = ref(false);
+const autocompleteDropdown = ref(false);
 const $toast = useToast();
 const radioGroup = ref<["true" | "false"]>(["true"]);
-let suggestions: { [s: string]: any; } = [];
+const suggestions = ref<Record<string, any>[]>([]);
+
+const selectedLocation = ref<Record<string, any>>({});
 
 const initialState = {
   name: "",
@@ -44,33 +43,35 @@ const initialState = {
   managerNumber: "",
 };
 
-let formModel = reactive({ ...initialState });
+const formModel = reactive({ ...initialState });
+
+watch(
+  () => formModel.location,
+  async () => {
+    if (formModel.location !== selectedLocation.value.text) {
+      await autosuggestHTTP();
+
+      autocompleteDropdown.value = !!suggestions.value.length;
+    }
+  }
+);
 
 const autosuggestHTTP = async () => {
   const { location } = formModel;
   let autosuggestServiceUrl = `https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?f=pjson&text=${location}&token=${ARCGIS_KEY}`;
-  await axios.get(autosuggestServiceUrl)
+  await axios
+    .get(autosuggestServiceUrl)
     .then((resp) => {
-      suggestions = resp.data['suggestions'];
+      suggestions.value = resp.data["suggestions"];
     })
     .catch((e) => console.log("ERROR: ", e));
-}
-
-const makeDelay = (ms: number | undefined) => {
-  var timer = 0;
-  return ((callback: any) => {
-    clearTimeout(callback);
-    timer = window.setTimeout(callback, ms);
-  })
-}
-
-var delay = makeDelay(500);
+};
 
 const addToWaitlist = async () => {
   try {
     loading.value = true;
 
-    const { name, email, location, availability, rooms, phone, managerNumber } =
+    const { name, email, availability, rooms, phone, managerNumber } =
       formModel;
 
     const radioGroupValue = radioGroup.value[0] === "true";
@@ -79,7 +80,7 @@ const addToWaitlist = async () => {
     await addDoc(collection(db, "waitlist"), {
       name,
       email,
-      location,
+      location: selectedLocation.value.text,
       availability,
       rooms,
       phone,
@@ -97,12 +98,13 @@ const addToWaitlist = async () => {
       from_address: "archibong@getcommune.co",
       from_name: "Charles Effiom",
       to_address: email,
-      to_name: name
-    }
+      to_name: name,
+    };
 
-    axios.post(url, data)
-    .then(() => {}) // TODO
-    .catch(() => {});
+    axios
+      .post(url, data)
+      .then(() => {}) // TODO
+      .catch(() => {});
 
     try {
       emailjs.send(SERVICE_ID, TEMPLATE_ID, formModel, PUBKEY).then(
@@ -134,26 +136,6 @@ const availabilitySelect = [
   { value: "not-available", label: "Not available" },
   { value: "available", label: "Available" },
 ];
-
-const autocomplete: any = async () => {
-  // const result = await search.suggest('Washington D.C', {sessionToken});
-  const fillResult = await autofill.suggest("Washington D.C", { sessionToken });
-
-  if (fillResult.suggestions.length === 0) {
-  }
-
-  const suggestion = fillResult.suggestions[0];
-  const { features } = await autofill.retrieve(suggestion, { sessionToken });
-  console.log(features);
-
-  /*const suggestion = result.suggestions[0];
-    if(search.canRetrieve(suggestion)) {
-      const { features } = await autofill.retrieve(suggestion, { sessionToken })
-      console.log('FEATURES: ', features);
-    } else if (search.canSuggest(suggestion)) {
-      await search.suggest('New York City', { sessionToken });
-    }*/
-};
 
 /*onMounted(() => {
   new google.maps.places.Autocomplete(
@@ -207,14 +189,56 @@ const autocomplete: any = async () => {
 
       <!-- <input type="text" autocomplete="street-address" /> -->
 
-      <UiInput
-        id="autocomplete"
-        v-on:keyup="delay(autosuggestHTTP())"
-        v-model="formModel.location"
-        label="Apartment Location"
-        placeholder="Lekki Phase 1"
-        required
-      />
+      <Position
+        v-model="autocompleteDropdown"
+        :trigger="`#autocomplete`"
+        placement="bottom-start"
+        :offset="[0, 4]"
+        flip
+        fixed
+        root-class="fixed inset-0 w-full h-full pointer-events-none"
+        z-index="10000"
+      >
+        <template #trigger="{ toggle }">
+          <UiInput
+            id="autocomplete"
+            v-model="formModel.location"
+            label="Apartment Location"
+            placeholder="Lekki Phase 1"
+            required
+            autocomplete="dont"
+          />
+        </template>
+
+        <template #default="{ active, ref }">
+          <ul
+            v-if="active"
+            :ref="ref"
+            class="pointer-events-auto min-w-[calc(100%-1.5rem)] max-w-[calc(100%-1.5rem)] md:min-w-[500px] md:max-w-lg p-2 grid gap-y-1 max-h-40 overflow-y-auto bg-white dark:bg-surface-d shadow-xl rounded border border-divider dark:border-divider-d"
+            @click.stop
+          >
+            <Button
+              v-for="location in suggestions"
+              tag="li"
+              :key="location.magicKey"
+              class="!bg-transparent !w-full !rounded-sm !text-surface-d dark:!text-white !justify-start !min-h-[1rem] !h-8 !px-2 !text-base !text-left"
+              @click="
+                () => {
+                  selectedLocation = location;
+
+                  formModel.location = location.text;
+
+                  autocompleteDropdown = false;
+                }
+              "
+            >
+              <span class="text-ellipsis whitespace-nowrap">
+                {{ location.text }}
+              </span>
+            </Button>
+          </ul>
+        </template>
+      </Position>
 
       <UiSelect
         v-model="formModel.rooms"
