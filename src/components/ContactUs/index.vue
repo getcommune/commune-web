@@ -93,7 +93,7 @@ const socialLinks = [
         Have Questions?
       </h2>
 
-      <p>Please contact us</p>
+      <p>Please send a message</p>
     </div>
 
     <UiForm
