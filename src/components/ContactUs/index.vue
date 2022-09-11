@@ -23,11 +23,13 @@ const loading = ref(false);
 const PUBKEY = import.meta.env.VITE_EMAILJS1_PUBKEY;
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_CONTACTUS_TEMPLATE_ID;
+
 const addComment = async () => {
   try {
     loading.value = true;
-    const { email, message } = formModel;
+    const { name, email, message } = formModel;
     await addDoc(collection(db, "questionbox"), {
+      name: name,
       email: email,
       content: message,
     });
@@ -56,6 +58,7 @@ const addComment = async () => {
   }
 };
 const initialState = {
+  name: "",
   email: "",
   message: "",
 };
@@ -104,6 +107,15 @@ const socialLinks = [
       action="."
       class="max-w-xs lg:max-w-lg mx-auto grid gap-y-5 lg:gap-y-8 mt-6 mb-20 lg:mt-12 px-4"
     >
+    <UiInput
+        type="name"
+        v-model="formModel.name"
+        label="Full Name"
+        autocomplete="name"
+        placeholder="Mark Hillary"
+        :validate="() => {}"
+        required
+      />
       <UiInput
         type="email"
         v-model="formModel.email"
