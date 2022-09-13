@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, onBeforeMount, onMounted } from "vue";
+import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
 import theme, { installTheme } from "./utils/theme";
 import Header from "./components/Header/index.vue";
 import Hero from "./components/Hero/index.vue";
@@ -9,7 +9,7 @@ import HowItWorks from "./components/HowItWorks/index.vue";
 import ContactUs from "./components/ContactUs/index.vue";
 import Desktop from "./components/WaitingListModal/Desktop.vue";
 import Mobile from "./components/WaitingListModal/Mobile.vue";
-
+import Docs from "./components/Docs/index.vue";
 import scrollPolyfill from "scroll-polyfill";
 import { sleep } from "./utils/sleep";
 import state from "./framework/state";
@@ -18,7 +18,14 @@ export default defineComponent({
   name: "app",
   directives: {},
   setup() {
+    const docsPage = ref(false);
+
     onBeforeMount(() => {
+      docsPage.value =
+        /^https?:\/\/(?:localhost|(?:\d+\.\d+\.\d+.\d+)):\d+\/docs\/?$/.test(
+          location.href
+        );
+
       installTheme();
       scrollPolyfill();
 
@@ -40,7 +47,7 @@ export default defineComponent({
         state.value.mounted = true;
       });
     });
-    return { theme };
+    return { theme, docsPage };
   },
   components: {
     Header,
@@ -51,12 +58,16 @@ export default defineComponent({
     ContactUs,
     Desktop,
     Mobile,
+    Docs,
   },
 });
 </script>
 
 <template>
+  <Docs v-if="docsPage" />
+
   <div
+    v-else
     id="app"
     class="h-full w-full bg-background dark:bg-background-d"
     @touchstart.passive
