@@ -251,7 +251,7 @@ const availabilitySelect = [
 
       <UiSelect
         v-model="formModel.availability"
-        label="Available for Rent"
+        label="Available for Rent?"
         placeholder="Choose one"
       >
         <template #options>
@@ -267,13 +267,6 @@ const availabilitySelect = [
           </option>
         </template>
       </UiSelect>
-
-      <UiInput
-        v-model="formModel.managerNumber"
-        label="Landlord/Manager's Phone"
-        placeholder="If you're referring a homeowner to us"
-        type="tel"
-      />
 
       <div>
         <legend

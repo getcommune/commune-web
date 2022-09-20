@@ -4,7 +4,7 @@ import Renter from "./Tabs/Renter.vue";
 import HomeOwner from "./Tabs/HomeOwner.vue";
 
 const tabOption = [
-  { title: "Home owner", component: HomeOwner },
+  { title: "Homeowner", component: HomeOwner },
   { title: "Renter", component: Renter },
 ];
 </script>
@@ -36,8 +36,8 @@ const tabOption = [
               :class="{
                 'font-bold': active,
                 'opacity-80 text-sm': !active,
-                'rounded-l-full pl-6 pr-3': item.title === 'Home owner',
-                'border-r': item.title === 'Home owner' && active,
+                'rounded-l-full pl-6 pr-3': item.title === 'Homeowner',
+                'border-r': item.title === 'Homeowner' && active,
                 'border-l': item.title === 'Renter' && active,
                 'rounded-r-full pr-6 pl-3': item.title === 'Renter',
               }"
