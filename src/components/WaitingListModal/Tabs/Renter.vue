@@ -18,69 +18,36 @@ const PUBKEY = import.meta.env.VITE_EMAILJS1_PUBKEY;
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_WAITLIST_TEMPLATE_ID;
 const ZEPTO_TEMPLATE_KEY = import.meta.env.VITE_MAIL_TEMPLATE_KEY;
-const ARCGIS_KEY = import.meta.env.VITE_ARCGIS_KEY;
 
 const emits = defineEmits(["form-submitted", "submit-error"]);
 
 const db = getFirestore(firebaseApp);
 const loading = ref(false);
-const autocompleteDropdown = ref(false);
 const $toast = useToast();
 const radioGroup = ref<["true" | "false"]>(["true"]);
-const suggestions = ref<Record<string, any>[]>([]);
-
-const selectedLocation = ref<Record<string, any>>({});
 
 const initialState = {
   name: "",
   email: "",
   phone: "",
-  location: "",
-  rooms: "",
-  availability: "",
   managerNumber: "",
 };
 
 const formModel = reactive({ ...initialState });
 
-watch(
-  () => formModel.location,
-  async () => {
-    if (formModel.location !== selectedLocation.value.text) {
-      await autosuggestHTTP();
-
-      autocompleteDropdown.value = !!suggestions.value.length;
-    }
-  }
-);
-
-const autosuggestHTTP = async () => {
-  const { location } = formModel;
-  let autosuggestServiceUrl = `https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?f=pjson&text=${location}&token=${ARCGIS_KEY}`;
-  await axios
-    .get(autosuggestServiceUrl)
-    .then((resp) => {
-      suggestions.value = resp.data["suggestions"];
-    })
-    .catch((e) => console.log("ERROR: ", e));
-};
-
-const addToWaitlist = async () => {
+const addToRenterWaitlist = async () => {
   try {
     loading.value = true;
 
-    const { name, email, availability, rooms, phone, managerNumber } =
+    const { name, email, phone, managerNumber } =
       formModel;
 
     const radioGroupValue = radioGroup.value[0] === "true";
     const url = "https://zepto-commune.herokuapp.com/api/send_welcome_mail";
 
-    await addDoc(collection(db, "waitlist"), {
+    await addDoc(collection(db, "renter_waitlist"), {
       name,
       email,
-      location: selectedLocation.value.text,
-      availability,
-      rooms,
       phone,
       managerNumber,
     });
@@ -128,7 +95,7 @@ const addToWaitlist = async () => {
       name="joinList"
       action="."
       class="max-w-sm lg:max-w-lg mx-auto grid gap-y-5 lg:gap-y-8 mt-4 lg:mt-4 min-w-[100%]"
-      @submit-form="addToWaitlist"
+      @submit-form="addToRenterWaitlist"
     >
       <UiInput
         v-model="formModel.name"
@@ -156,7 +123,7 @@ const addToWaitlist = async () => {
       <UiInput
         v-model="formModel.managerNumber"
         label="Landlord/Manager's Phone"
-        placeholder="If you're referring a homeowner to us"
+        placeholder="Refer a homeowner"
         type="tel"
       />
 
