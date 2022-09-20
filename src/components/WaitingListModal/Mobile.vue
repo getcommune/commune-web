@@ -46,7 +46,7 @@ const breakpoint = useBreakpoint();
           @click.stop
         >
           <div
-            class="bg-background dark:bg-surface-d dark:border border-b-0 border-divider-d relative z-1 min-w-[100vw] rounded-t-lg max-h-[inherit] overflow-y-auto"
+            class="bg-background dark:bg-surface-d dark:border border-b-0 border-divider-d relative z-1 min-w-[100vw] rounded-t-lg max-h-[inherit] overflow-y-auto overflow-x-hidden"
           >
             <Content />
 
