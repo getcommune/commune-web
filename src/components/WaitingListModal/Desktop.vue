@@ -6,7 +6,8 @@ import Content from "./Content.vue";
 
 const breakpoint = useBreakpoint();
 
-const onFormSubmitted = (evt: Record<string, any>) => {
+const onFormSubmitted = (...args: unknown[]): void => {
+  const evt = args[0];
   console.log(evt);
 };
 </script>
