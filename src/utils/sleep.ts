@@ -15,10 +15,19 @@ export async function sleep(
   const duration = (
     typeof _duration === "function"
       ? 0
-      : (_duration as Duration) >= 0
-      ? _duration
-      : 0
+      : // Check if _duration is a string and ends with a unit
+      typeof _duration === "string" &&
+        (_duration.endsWith("ms") ||
+          _duration.endsWith("s") ||
+          _duration.endsWith(""))
+        ? // Parse the string to a number
+          parseInt(_duration, 10)
+        : // Use the value directly if it's already a number
+        (_duration as number) >= 0
+        ? _duration
+        : 0
   ) as number | any;
+  
 
   const callback = typeof _duration === "function" ? _duration : _callback;
 

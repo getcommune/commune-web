@@ -7,6 +7,7 @@ import AboutUs from "./components/AboutUs/index.vue";
 import KeyOffering from "./components/KeyOffering/index.vue";
 import HowItWorks from "./components/HowItWorks/index.vue";
 import ContactUs from "./components/ContactUs/index.vue";
+import DeleteAccount from "./components/DeleteAccount/index.vue";
 import Desktop from "./components/WaitingListModal/Desktop.vue";
 import Mobile from "./components/WaitingListModal/Mobile.vue";
 import Docs from "./components/Docs/index.vue";
@@ -19,12 +20,18 @@ export default defineComponent({
   directives: {},
   setup() {
     const docsPage = ref(false);
+    const deleteAccountPage = ref(false);
 
     onBeforeMount(() => {
       docsPage.value =
         /^https?:\/\/(?:localhost|(?:\d+\.\d+\.\d+.\d+)):\d+\/docs\/?$/.test(
           location.href
         );
+        deleteAccountPage.value =
+  /^https?:\/\/(?:localhost|(?:\d+\.\d+\.\d+.\d+)|getcommune\.co|getcommune\.netlify\.app)(?::\d+)?\/delete-account\/?$/.test(
+    location.href
+  );
+
 
       installTheme();
       scrollPolyfill();
@@ -47,7 +54,7 @@ export default defineComponent({
         state.value.mounted = true;
       });
     });
-    return { theme, docsPage };
+    return { theme, docsPage, deleteAccountPage };
   },
   components: {
     Header,
@@ -59,12 +66,14 @@ export default defineComponent({
     Desktop,
     Mobile,
     Docs,
+    DeleteAccount,
   },
 });
 </script>
 
 <template>
   <Docs v-if="docsPage" />
+  <DeleteAccount v-if="deleteAccountPage"/>
 
   <div
     v-else
