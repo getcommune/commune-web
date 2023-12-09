@@ -28,8 +28,11 @@ export default defineComponent({
           location.href
         );
         deleteAccountPage.value =
-  /^https?:\/\/(?:localhost|\d+\.\d+\.\d+.\d+|getcommune\.co|getcommune\.netlify\.app)(?::\d+)?\/delete-account\/?$/.test(
-    location.href
+        /^https?:\/\/(?:localhost|\w+\.getcommune\.co|getcommune\.netlify\.app)(?::\d+)?\/.*delete-account\/?$/
+.test(
+  location.href
+
+
   );
 
 
