@@ -78,6 +78,16 @@ const socialLinks = [
 ];
 </script>
 
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: "delete-account",
+  directives: {
+  }
+})
+</script>
+
 
 <template>
     <section id="delete-account" class="mt-24">
